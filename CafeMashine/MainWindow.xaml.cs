@@ -11,6 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CafeMashine.View;
+using MyMobile;
 
 namespace CafeMashine
 {
@@ -22,6 +24,12 @@ namespace CafeMashine
         public MainWindow()
         {
             InitializeComponent();
+            DbProxy.LoadData();
+        }
+
+        private void EditListMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            new EditAvtomatsIngredients().ShowDialog();
         }
     }
 }

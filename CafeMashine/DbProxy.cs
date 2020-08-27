@@ -10,39 +10,76 @@ namespace MyMobile
 {
     public class DbProxy
     {
-        public static IEnumerable<Avtomat> Avtomats { get; set; }
-        public static IEnumerable<Record> Records { get; set; }
-        public static IEnumerable<Ingredient> Ingredients { get; set; }
+        public static List<Avtomat> Avtomats { get; set; }
+        public static List<Record> Records { get; set; }
+        public static List<Ingredient> Ingredients { get; set; }
 
 
-        //public void SaveData()
-        //{
-        //    StreamWriter writer =new StreamWriter("data.xml",false);
-        //    XmlSerializer serializer=new XmlSerializer(typeof(DbProxy));
-        //    serializer.Serialize(writer,this);
-        //}
-
-        //public static void LoadData()
-        //{
-        //    StreamReader reader=new StreamReader("data.xml");
-        //    XmlSerializer serializer =new XmlSerializer(typeof(DbProxy));
-            
-        //}
-
-
+        /// <summary>
+        /// Сохранение списка автоматов
+        /// </summary>
         public static void SaveAvtomats()
         {
-            StreamWriter writer = new StreamWriter("avtomats.xml", false);
-            XmlSerializer serializer = new XmlSerializer(typeof(IEnumerable<Avtomat>));
+            StreamWriter writer = new StreamWriter("data//avtomats.xml", false);
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Avtomat>));
             serializer.Serialize(writer, Avtomats);
         }
 
+        /// <summary>
+        /// Загрузка списка автоматов
+        /// </summary>
+        public static void LoadAvtomats()
+        {
+            Avtomats=new List<Avtomat>();
+            try
+            {
+                StreamReader reader=new StreamReader("data//avtomats.xml");
+                XmlSerializer serializer=new XmlSerializer(typeof(List<Avtomat>));
+                Avtomats = (List<Avtomat>)serializer.Deserialize(reader);
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+
+        /// <summary>
+        /// Сохранение списка ингредиентов
+        /// </summary>
         public static void SaveIngredients()
         {
-            StreamWriter writer = new StreamWriter("ingredienst.xml", false);
-            XmlSerializer serializer = new XmlSerializer(typeof(IEnumerable<Ingredient>));
-            serializer.Serialize(writer, Avtomats);
+            StreamWriter writer = new StreamWriter("data//ingredienst.xml", false);
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Ingredient>));
+            serializer.Serialize(writer, Ingredients);
         }
+
+        /// <summary>
+        /// Загрузка списка ингредиентов
+        /// </summary>
+        public static void LoadIngredients()
+        {
+            Ingredients = new List<Ingredient>();
+            try
+            {
+                StreamReader reader = new StreamReader("data//ingredienst.xml");
+                XmlSerializer serializer = new XmlSerializer(typeof(List<Ingredient>));
+                Ingredients = (List<Ingredient>)serializer.Deserialize(reader);
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+
+        /// <summary>
+        /// Загрузка данных
+        /// </summary>
+        public static void LoadData()
+        {
+            LoadAvtomats();
+            LoadIngredients();
+        }
+
     }
 
     
