@@ -63,5 +63,9 @@ namespace CafeMashine
         //string data = "THExxQUICKxxBROWNxxFOX";
 
         //    return data.Split(new string[] { "xx" }, StringSplitOptions.None);
+        private void OperatorListMenuItem_OnClick(object sender, RoutedEventArgs e)
+        {
+            new OperatorView().ShowDialog();
+        }
     }
 }

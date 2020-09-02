@@ -20,7 +20,11 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <TextBox Name="AvtomatNameTextBox" Grid.Column="0" Margin="1" FontSize="16" TextChanged="AvtomatNameTextBox_TextChanged"/>
-                        <Button Name="AddAvtomatButton" Content="+" Grid.Column="1" Margin="1" Width="40" FontSize="16" Click="AddAvtomatButton_OnClick"/>
+                        <Button Name="AddAvtomatButton" Grid.Column="1" Margin="1" Width="40" FontSize="16" Click="AddAvtomatButton_OnClick">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/CafeMashine;component/Icons/add.png" Stretch="Uniform"/>
+                            </Button.Background>
+                        </Button>
                     </Grid>
                     <ListBox Name="AvtomatListView" Grid.Row="1" >
                         <ListBox.ItemTemplate>
@@ -53,7 +57,11 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <TextBox Name="IngredientNameTextBox" Grid.Column="0" Margin="1" FontSize="16" TextChanged="IngredientNameTextBox_TextChanged" />
-                        <Button Name="AddIngredientButton" Content="+" Grid.Column="1" Margin="1" Width="40" FontSize="16" Click="AddIngredientButton_OnClick"/>
+                        <Button Name="AddIngredientButton" Grid.Column="1" Margin="1" Width="40" FontSize="16" Click="AddIngredientButton_OnClick">
+                            <Button.Background>
+                                <ImageBrush Stretch="Uniform" ImageSource="/CafeMashine;component/Icons/add.png"/>
+                            </Button.Background>
+                        </Button>
                     </Grid>
                     <ListBox Name="IngredientListView" Grid.Row="1" >
                         <ListBox.ItemTemplate>

@@ -16,6 +16,8 @@ namespace MyMobile
 
         public static List<Base> Bases { get; set; }
 
+        public static List<UserInfo> UsersInfo { get; set; }
+
         /// <summary>
         /// Сохранение списка автоматов
         /// </summary>
@@ -44,6 +46,22 @@ namespace MyMobile
             }
         }
 
+
+        public static void LoadUsersInfo()
+        {
+            UsersInfo=new List<UserInfo>();
+            try
+            {
+                StreamReader reader = new StreamReader("data//UsersInfo.xml");
+                XmlSerializer serializer = new XmlSerializer(typeof(List<UserInfo>));
+                UsersInfo = (List<UserInfo>)serializer.Deserialize(reader);
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+
         /// <summary>
         /// Сохранение списка ингредиентов
         /// </summary>
@@ -52,6 +70,14 @@ namespace MyMobile
             StreamWriter writer = new StreamWriter("data//ingredienst.xml", false);
             XmlSerializer serializer = new XmlSerializer(typeof(List<Ingredient>));
             serializer.Serialize(writer, Ingredients);
+        }
+
+
+        public static void SaveUsersInfo()
+        {
+            StreamWriter writer = new StreamWriter("data//UsersInfo.xml", false);
+            XmlSerializer serializer = new XmlSerializer(typeof(List<UserInfo>));
+            serializer.Serialize(writer, UsersInfo);
         }
 
         /// <summary>
@@ -104,6 +130,7 @@ namespace MyMobile
             LoadAvtomats();
             LoadIngredients();
             LoadBases();
+            LoadUsersInfo();
         }
 
     }
@@ -177,10 +204,17 @@ namespace MyMobile
 
     public class UserInfo
     {
+        public UserInfo()
+        {
+            Id=Guid.NewGuid();
+            Avtomats=new List<Guid>();
+        }
+
         public Guid Id { get; set; }
         public string Name { get; set; }
         public int RoleName { get; set; }
         public string Password { get; set; }
+        public List<Guid> Avtomats { get; set; }
 
     }
 }

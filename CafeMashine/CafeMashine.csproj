@@ -59,6 +59,9 @@
     <Compile Include="View\EditAvtomatsIngredients.xaml.cs">
       <DependentUpon>EditAvtomatsIngredients.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\OperatorView.xaml.cs">
+      <DependentUpon>OperatorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\StepIngredientsWindow.xaml.cs">
       <DependentUpon>StepIngredientsWindow.xaml</DependentUpon>
     </Compile>
@@ -84,6 +87,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EditAvtomatsIngredients.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\OperatorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -115,6 +122,11 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Icons\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\addPerson.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

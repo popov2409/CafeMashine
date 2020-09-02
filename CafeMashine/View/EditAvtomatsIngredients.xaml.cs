@@ -23,7 +23,7 @@ namespace CafeMashine.View
         public EditAvtomatsIngredients()
         {
             InitializeComponent();
-            DbProxy.LoadData();
+            //DbProxy.LoadData();
             AvtomatListView.ItemsSource = DbProxy.Avtomats.OrderBy(c => c.Value);
             IngredientListView.ItemsSource = DbProxy.Ingredients.OrderBy(c => c.Value);
 
