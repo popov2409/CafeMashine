@@ -14,6 +14,7 @@ namespace MyMobile
         public static List<Record> Records { get; set; }
         public static List<Ingredient> Ingredients { get; set; }
 
+        public static List<Base> Bases { get; set; }
 
         /// <summary>
         /// Сохранение списка автоматов
@@ -71,6 +72,30 @@ namespace MyMobile
             }
         }
 
+        public static void LoadBases()
+        {
+            Bases=new List<Base>();
+            try
+            {
+                StreamReader reader = new StreamReader("data//bases.xml");
+                XmlSerializer serializer = new XmlSerializer(typeof(List<Base>));
+                Bases = (List<Base>)serializer.Deserialize(reader);
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+
+
+        public static void SaveBases()
+        {
+            StreamWriter writer = new StreamWriter("data//bases.xml", false);
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Base>));
+            serializer.Serialize(writer, Bases);
+        }
+
+
         /// <summary>
         /// Загрузка данных
         /// </summary>
@@ -78,6 +103,7 @@ namespace MyMobile
         {
             LoadAvtomats();
             LoadIngredients();
+            LoadBases();
         }
 
     }
@@ -102,10 +128,6 @@ namespace MyMobile
 
     public class Record
     {
-        public Record()
-        {
-            Id=Guid.NewGuid();
-        }
 
         public Guid Id { get; set; }
         /// <summary>
@@ -134,4 +156,31 @@ namespace MyMobile
         //public bool IsSend { get; set; }
     }
 
+    /// <summary>
+    /// Данные по складу
+    /// </summary>
+    public class Base
+    {
+        public Guid Id { get; set; }
+
+        public Guid Ingredient { get; set; }
+
+        public string Date { get; set; }
+
+        public int Count { get; set; }
+
+        /// <summary>
+        /// Приход(true), Уход(false)
+        /// </summary>
+        public bool IsIn { get; set; }
+    }
+
+    public class UserInfo
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public int RoleName { get; set; }
+        public string Password { get; set; }
+
+    }
 }

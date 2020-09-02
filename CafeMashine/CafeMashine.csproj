@@ -53,8 +53,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="View\BigBaseWindow.xaml.cs">
+      <DependentUpon>BigBaseWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EditAvtomatsIngredients.xaml.cs">
       <DependentUpon>EditAvtomatsIngredients.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StepIngredientsWindow.xaml.cs">
+      <DependentUpon>StepIngredientsWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -73,7 +79,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\BigBaseWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\EditAvtomatsIngredients.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StepIngredientsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

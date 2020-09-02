@@ -12,9 +12,11 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
-            <MenuItem Header="Автоматы/Ингредиенты">
-                <MenuItem Name="EditListMenuItem" Header="Редактировать список" Click="EditListMenuItem_OnClick"/>
-                <MenuItem Name="ImportListMenuItem" Header="Импорт списка для приложения" Click="ImportListMenuItem_OnClick"/>
+            <MenuItem Header="Администрирование">
+                
+                <MenuItem Name="EditListMenuItem" Header="Списоки автоматов и ингредиентов" Click="EditListMenuItem_OnClick"/>
+                <MenuItem Name="ImportListMenuItem" Header="Экспорт списка для приложения" Click="ImportListMenuItem_OnClick"/>
+                <MenuItem Name="OperatorListMenuItem" Header="Списки операторов"></MenuItem>
             </MenuItem>
         </Menu>
 
