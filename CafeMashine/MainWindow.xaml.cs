@@ -35,27 +35,7 @@ namespace CafeMashine
 
         private void ImportListMenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            string result = "";
-            foreach (Avtomat avtomat in DbProxy.Avtomats)
-            {
-                result += $"{avtomat.Id}:{avtomat.Value};";
-            }
-
-            result = result.Remove(result.Length - 1);
-
-            result += "#";
-
-            foreach (Ingredient ingredient in DbProxy.Ingredients)
-            {
-                result += $"{ingredient.Id}:{ingredient.Value};";
-            }
-            result = result.Remove(result.Length - 1);
-
-            StreamWriter sw = new StreamWriter("LIST.txt", false);
-            sw.WriteLine(result);
-            sw.Flush();
-            sw.Close();
-            MessageBox.Show("Текстовый файл LIST готов! \n Скопируйте его в телефон и выполните обновление списка на телефоне!");
+            new ImportDataView().ShowDialog();
         }
 
 

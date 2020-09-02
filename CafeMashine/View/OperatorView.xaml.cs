@@ -45,7 +45,7 @@ namespace CafeMashine.View
         {
             if (OperatorNameTextBox.Text.Any())
             {
-                DbProxy.UsersInfo.Add(new UserInfo() {Name = OperatorNameTextBox.Text});
+                DbProxy.UsersInfo.Add(new UserInfo() {Name = OperatorNameTextBox.Text,Password = "111",RoleName = 7});
             }
 
             OperatorListBox.ItemsSource = DbProxy.UsersInfo.OrderBy(c => c.Name);
@@ -67,6 +67,8 @@ namespace CafeMashine.View
             {
                 avtomatsCheck.IsCheck = false;
             }
+
+            if(OperatorListBox.SelectedItem==null) return;
 
             AvtomatListBox.ItemsSource = null;
             AvtomatListBox.ItemsSource = AvtomatsChecks;
