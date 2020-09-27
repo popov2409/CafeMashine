@@ -26,6 +26,7 @@ namespace CafeMashine.View
             InitializeComponent();
            // DbProxy.LoadData();
             InitializeList();
+            if (OperatorListBox.Items.Count > 0) OperatorListBox.SelectedIndex = 0;
         }
 
         private void InitializeList()
@@ -58,7 +59,6 @@ namespace CafeMashine.View
             if (OperatorListBox.SelectedIndex < 0) return;
             DbProxy.UsersInfo.Remove((UserInfo) OperatorListBox.SelectedItem);
             OperatorListBox.ItemsSource = DbProxy.UsersInfo.OrderBy(c => c.Name);
-            DbProxy.SaveUsersInfo();
         }
 
         private void OperatorListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

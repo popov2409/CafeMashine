@@ -26,6 +26,9 @@ namespace CafeMashine.View
             IsIn = isIn;
             //IngredientListBox.ItemsSource = DbProxy.Ingredients.OrderBy(c => c.Value);
             IngredientGrid.ItemsSource = DbProxy.Ingredients.OrderBy(c => c.Value).ToList();
+
+            StackPanel.Visibility = IsIn ? Visibility.Collapsed : Visibility.Visible;
+            OperatorComboBox.ItemsSource = DbProxy.UsersInfo;
         }
 
         private void CancelButton_OnClick(object sender, RoutedEventArgs e)
@@ -35,15 +38,24 @@ namespace CafeMashine.View
 
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
+            if (!IsIn && OperatorComboBox.SelectedIndex < 0)
+            {
+                MessageBox.Show("Выберите оператора!");
+                return;
+            }
+
+            Guid id = IsIn ? new Guid() : ((UserInfo) OperatorComboBox.SelectedItem).Id; 
             foreach (Ingredient ingredient in DbProxy.Ingredients)
             {
+                if(ingredient.Count==0) continue;
                 DbProxy.Bases.Add(new Base()
                 {
                     Id = Guid.NewGuid(),
                     Date = DateTime.Now.ToShortDateString(),
                     Ingredient = ingredient.Id,
                     Count = ingredient.Count,
-                    IsIn = IsIn
+                    IsIn = IsIn,
+                    UserId = id
                 });
                 ingredient.Count = 0;
             }

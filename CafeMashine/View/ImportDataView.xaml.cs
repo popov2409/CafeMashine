@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MyMobile;
+using Newtonsoft.Json;
 
 namespace CafeMashine.View
 {
@@ -72,7 +73,11 @@ namespace CafeMashine.View
 
         bool CreateReport(UserInfo userInfo)
         {
-
+            SendUser usrSendUser=new SendUser()
+            {
+                Id=userInfo.Id.ToString(),
+                Name = userInfo.Name
+            };
             string result = "";
             foreach (Guid guid in userInfo.Avtomats)
             {
@@ -89,7 +94,16 @@ namespace CafeMashine.View
 
             result += $"{userInfo.Id}:{userInfo.Name}:{userInfo.Password}:{userInfo.RoleName}";
             StreamWriter sw = new StreamWriter("LIST.txt", false);
-            sw.WriteLine(result);
+            sw.WriteLine(JsonConvert.SerializeObject(usrSendUser));
+            foreach (SendAvtomat avtomat in DbProxy.SendAvtomats)
+            {
+                sw.WriteLine(JsonConvert.SerializeObject(avtomat));
+            }
+            sw.WriteLine("#");
+            foreach (SendIngredient ingredient in DbProxy.SendIngredients)
+            {
+                sw.WriteLine(JsonConvert.SerializeObject(ingredient));
+            }
             sw.Flush();
             sw.Close();
             return true;

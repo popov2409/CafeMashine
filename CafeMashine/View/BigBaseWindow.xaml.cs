@@ -23,7 +23,7 @@ namespace CafeMashine.View
         public BigBaseWindow()
         {
             InitializeComponent();
-            //DbProxy.LoadData();
+            DbProxy.LoadData();
             InitializeBase();
         }
 

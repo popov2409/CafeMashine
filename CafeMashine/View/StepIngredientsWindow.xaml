@@ -12,32 +12,24 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <!--<ListBox Grid.ColumnSpan="2" Name="IngredientListBox">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="{Binding Path=Value}" FontSize="18" Grid.Column="0" VerticalAlignment="Center"/>
-                            <TextBox Text="{Binding Path=Count}" FontSize="18" Grid.Column="1" VerticalAlignment="Center" Margin="30,0,0,0"/>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>-->
-        <DataGrid Name="IngredientGrid" Grid.ColumnSpan="2" CanUserAddRows="False" AutoGenerateColumns="False" HeadersVisibility="Column" FontSize="16">
+        <StackPanel Name="StackPanel" Grid.Row="0" Grid.ColumnSpan="2" Margin="4">
+            <TextBlock Text="Оператор" FontSize="16"/>
+            <ComboBox Name="OperatorComboBox"  DisplayMemberPath="Name" FontSize="14"/>
+
+        </StackPanel>
+        <DataGrid Name="IngredientGrid" Grid.Row="1" Grid.ColumnSpan="2" CanUserAddRows="False" AutoGenerateColumns="False" HeadersVisibility="Column" FontSize="16">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Ингредиент" MinWidth="200" Binding="{Binding Path=Value}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Кол-во" Binding="{Binding Path=Count}"/>
             </DataGrid.Columns>
 
         </DataGrid>
-        <Button Name="CancelButton" Grid.Column="0" Grid.Row="1" Content="Отменить" FontSize="20" Margin="1" Click="CancelButton_OnClick"/>
-        <Button Name="SaveButton" Grid.Column="1" Grid.Row="1" Content="Сохранить" FontSize="20" Margin="1" Click="SaveButton_OnClick"/>
+        <Button Name="CancelButton" Grid.Column="0" Grid.Row="2" Content="Отменить" FontSize="20" Margin="1" Click="CancelButton_OnClick"/>
+        <Button Name="SaveButton" Grid.Column="1" Grid.Row="2" Content="Сохранить" FontSize="20" Margin="1" Click="SaveButton_OnClick"/>
 
     </Grid>
 </Window>

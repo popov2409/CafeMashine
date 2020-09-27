@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CafeMashine"
         mc:Ignorable="d"
-        Title="Бухгалтер" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Бухгалтер" Height="600" Width="800" WindowStartupLocation="CenterScreen" FontSize="20">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -17,8 +17,36 @@
                 <MenuItem Name="EditListMenuItem" Header="Списоки автоматов и ингредиентов" Click="EditListMenuItem_OnClick"/>
                 <MenuItem Name="ImportListMenuItem" Header="Экспорт списка для приложения" Click="ImportListMenuItem_OnClick"/>
                 <MenuItem Name="OperatorListMenuItem" Header="Списки операторов" Click="OperatorListMenuItem_OnClick"></MenuItem>
+                <MenuItem Name="LoadReportMenuItem" Header="Загрузить отчеты" Click="LoadReportMenuItem_OnClick"></MenuItem>
             </MenuItem>
         </Menu>
+        <TabControl Grid.Row="1" Name="MainTabControl">
+            <TabItem Header="Склад">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid Name="IngredientCountDataGrid" CanUserAddRows="False" AutoGenerateColumns="False" IsReadOnly="True" HeadersVisibility="Column">
+                        <!--<DataGrid.Columns>
+                            <DataGridTextColumn Header="Ингредиент" MinWidth="200" Binding="{Binding Path=Value}"/>
+                            <DataGridTextColumn Header="Кол-во" Binding="{Binding Path=Count}" FontWeight="Bold"/>
+                        </DataGrid.Columns>-->
+
+                    </DataGrid>
+                    <Grid  Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Button Name="AddIngredientsInBaseButton" Grid.Column="0" Content="Добавить на склад" Margin="1" FontSize="20" Click="AddIngredientsInBaseButton_OnClick"/>
+                        <Button Name="SendIngredientsInBaseButton" Grid.Column="1" Content="Выдать со склада" Margin="1" FontSize="20" Click="SendIngredientsInBaseButton_OnClick" />
+
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+        </TabControl>
 
     </Grid>
 </Window>

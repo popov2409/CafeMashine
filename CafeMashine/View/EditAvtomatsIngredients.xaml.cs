@@ -42,6 +42,7 @@ namespace CafeMashine.View
             if (avtomatEdit)
             {
                 DbProxy.Avtomats.First(c => c.Id == selectedAvtomat.Id).Value = AvtomatNameTextBox.Text;
+                avtomatEdit = false;
             }
             else
             {
