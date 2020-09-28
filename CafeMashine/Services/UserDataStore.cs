@@ -9,9 +9,10 @@ namespace CafeMashine.Services
 {
     public class UserDataStore:IDataStore<User>
     {
-        public Task<bool> AddItemAsync(User item)
+        public async Task<bool> AddItemAsync(User item)
         {
-            throw new NotImplementedException();
+            App.DataBase.AddItem(item);
+            return await Task.FromResult(true);
         }
 
         public Task<bool> UpdateItemAsync(User item)
@@ -29,9 +30,9 @@ namespace CafeMashine.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<User>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<User>> GetItemsAsync(bool forceRefresh = false)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(App.DataBase.Users.OrderBy(c=>c.Name));
         }
 
         public Task<IEnumerable<User>> GetSearchResults(string query)

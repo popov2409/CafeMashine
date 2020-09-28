@@ -29,9 +29,9 @@ namespace CafeMashine.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<IngredientCount>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<IngredientCount>> GetItemsAsync(bool forceRefresh = false)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(App.DataBase.IngredientCounts);
         }
 
         public Task<IEnumerable<IngredientCount>> GetSearchResults(string query)

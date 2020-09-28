@@ -29,9 +29,9 @@ namespace CafeMashine.Services
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Record>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Record>> GetItemsAsync(bool forceRefresh = false)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(App.DataBase.Records);
         }
 
         public Task<IEnumerable<Record>> GetSearchResults(string query)

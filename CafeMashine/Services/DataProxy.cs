@@ -47,16 +47,15 @@ namespace CafeMashine.Services
         private void LoadAvtomats()
         {
             _avtomats = new List<Avtomat>();
-            StreamReader reader = new StreamReader(Path.Combine(DATA_FOLDER_PATH, AVTOMAT_DATA_PATH));
             try
             {
+                StreamReader reader = new StreamReader(Path.Combine(DATA_FOLDER_PATH, AVTOMAT_DATA_PATH));
                 XmlSerializer serializer = new XmlSerializer(typeof(List<Avtomat>));
                 _avtomats = (List<Avtomat>) serializer.Deserialize(reader);
                 reader.Close();
             }
             catch
             {
-                reader.Close();
             }
         }
 
@@ -71,16 +70,15 @@ namespace CafeMashine.Services
         private void LoadIngredients()
         {
             _ingredients=new List<Ingredient>();
-            StreamReader reader = new StreamReader(Path.Combine(DATA_FOLDER_PATH, INGREDIENT_DATA_PATH));
             try
             {
+                StreamReader reader = new StreamReader(Path.Combine(DATA_FOLDER_PATH, INGREDIENT_DATA_PATH));
                 XmlSerializer serializer = new XmlSerializer(typeof(List<Ingredient>));
                 _ingredients = (List<Ingredient>)serializer.Deserialize(reader);
                 reader.Close();
             }
             catch
             {
-                reader.Close();
             }
         }
 
@@ -95,16 +93,15 @@ namespace CafeMashine.Services
         private void LoadIngredientCounts()
         {
             _ingredientCounts = new List<IngredientCount>();
-            StreamReader reader = new StreamReader(Path.Combine(DATA_FOLDER_PATH, INGREDIENTCOUNT_DATA_PATH));
             try
             {
+                StreamReader reader = new StreamReader(Path.Combine(DATA_FOLDER_PATH, INGREDIENTCOUNT_DATA_PATH));
                 XmlSerializer serializer = new XmlSerializer(typeof(List<IngredientCount>));
                 _ingredientCounts = (List<IngredientCount>)serializer.Deserialize(reader);
                 reader.Close();
             }
             catch
             {
-                reader.Close();
             }
         }
 
@@ -119,16 +116,15 @@ namespace CafeMashine.Services
         private void LoadUsers()
         {
             _users = new List<User>();
-            StreamReader reader = new StreamReader(Path.Combine(DATA_FOLDER_PATH, USER_DATA_PATH));
             try
             {
+                StreamReader reader = new StreamReader(Path.Combine(DATA_FOLDER_PATH, USER_DATA_PATH));
                 XmlSerializer serializer = new XmlSerializer(typeof(List<User>));
                 _users = (List<User>)serializer.Deserialize(reader);
                 reader.Close();
             }
             catch
             {
-                reader.Close();
             }
         }
 
@@ -142,16 +138,14 @@ namespace CafeMashine.Services
         private void LoadRecords()
         {
             _records = new List<Record>();
-            StreamReader reader = new StreamReader(Path.Combine(DATA_FOLDER_PATH, RECORD_DATA_PATH));
             try
             {
+                StreamReader reader = new StreamReader(Path.Combine(DATA_FOLDER_PATH, RECORD_DATA_PATH));
                 XmlSerializer serializer = new XmlSerializer(typeof(List<Record>));
                 _records = (List<Record>)serializer.Deserialize(reader);
-                reader.Close();
             }
             catch
             {
-                reader.Close();
             }
         }
         private void SaveRecords()

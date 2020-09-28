@@ -1,0 +1,91 @@
+﻿<Window x:Class="CafeMashine.View.StartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CafeMashine.View"
+        mc:Ignorable="d"
+        Title="Оператор" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style TargetType="GroupBox">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="BorderBrush" Value="DimGray"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Margin" Value="1"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+        </Style>
+        <Style TargetType="ListView">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Grid.Row="1" Header="Остатки по складу" >
+            <GroupBox.Content>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ListView Grid.Row="0" ItemsSource="{Binding IngredientCounts}" Margin="1">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="40"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding Ingredient,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Count,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Button Grid.Row="1" Name="AddIngredientCountStorage" Content="Добавить" Margin="1"/>
+                </Grid>
+                </GroupBox.Content>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Grid.Column="1" Header="Остатки по операторам">
+            <GroupBox.Content>
+                <Grid Margin="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.7*"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <ListView Grid.Column="0" ItemsSource="{Binding Users}" Margin="1" SelectedItem="{Binding SelectedUser}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <ListView Grid.Column="1" ItemsSource="{Binding UserIngredientCounts}" Margin="1">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="40"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding Ingredient,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Count,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </GroupBox.Content>
+        </GroupBox>
+    </Grid>
+</Window>

@@ -9,16 +9,6 @@ namespace CafeMashine.Models
    {
        public string Id { get; set; }
        public string Value { get; set; }
-
-       public Ingredient()
-       {
-           Id = Guid.NewGuid().ToString();
-       }
-
-       public Ingredient(string id, string value)
-       {
-           Id = id;
-           Value = value;
-       }
+       public int Rank { get; set; }
    }
 }

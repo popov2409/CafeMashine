@@ -74,6 +74,7 @@
     <Compile Include="Services\UserDataStore.cs" />
     <Compile Include="ViewModels\AvtomatViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\StartViewModel.cs" />
     <Compile Include="View\BigBaseWindow.xaml.cs">
       <DependentUpon>BigBaseWindow.xaml</DependentUpon>
     </Compile>
@@ -88,6 +89,9 @@
     </Compile>
     <Compile Include="View\OperatorView.xaml.cs">
       <DependentUpon>OperatorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StartWindow.xaml.cs">
+      <DependentUpon>StartWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StepIngredientsWindow.xaml.cs">
       <DependentUpon>StepIngredientsWindow.xaml</DependentUpon>
@@ -126,6 +130,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\OperatorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StartWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
