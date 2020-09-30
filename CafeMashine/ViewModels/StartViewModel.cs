@@ -49,7 +49,29 @@ namespace CafeMashine.ViewModels
         /// <summary>
         /// Список при выборе оператора
         /// </summary>
-        public List<IngredientCount> UserIngredientCounts => _userIngredientCounts;
+        public List<IngredientCount> UserIngredientCounts
+        {
+            get
+            {
+                _userIngredientCounts = new List<IngredientCount>();
+                if (_selectedUser == null) return _userIngredientCounts;
+                foreach (var ic in _ingredients.Select(ingredient => new IngredientCount()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Ingredient = ingredient.Value,
+                    Count = _ingredientCounts.Where(c => c.User == _selectedUser.Id && c.Ingredient == ingredient.Id).Sum(c => c.Count) - _records.Where(c => c.Ingredient == ingredient.Id && c.User == _selectedUser.Id).Sum(c => c.Count)
+                }))
+                {
+                    _userIngredientCounts.Add(ic);
+                }
+                return _userIngredientCounts;
+            }
+        }
+
+        
+
+        public User StorageUser => _storageUser;
+
 
         public User SelectedUser
         {
@@ -60,16 +82,7 @@ namespace CafeMashine.ViewModels
             set
             {
                 _selectedUser = value;
-                _userIngredientCounts = new List<IngredientCount>();
-                foreach (var ic in _ingredients.Select(ingredient => new IngredientCount()
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Ingredient = ingredient.Value,
-                    Count = _ingredientCounts.Where(c => c.User == _selectedUser.Id).Sum(c => c.Count) - _records.Where(c => c.Ingredient == ingredient.Id && c.User == _selectedUser.Id).Sum(c => c.Count)
-                }))
-                {
-                    _userIngredientCounts.Add(ic);
-                }
+                
                 OnPropertyChanged("UserIngredientCounts");
             }
 
@@ -102,5 +115,20 @@ namespace CafeMashine.ViewModels
                 return result;
             }
         }
+
+
+        public void AddIngredientsCount(List<IngredientCount> list)
+        {
+            foreach (IngredientCount ingredientCount in list)
+            {
+                _ingredientCounts.Add(ingredientCount);
+                IngredientCountDataStore.AddItemAsync(ingredientCount);
+            }
+            OnPropertyChanged("IngredientCounts");
+            OnPropertyChanged("UserIngredientCounts");
+
+        }
+
+
     }
 }

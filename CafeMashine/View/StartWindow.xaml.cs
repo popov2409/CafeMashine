@@ -59,5 +59,20 @@ namespace CafeMashine.View
                 }
             }
         }
+
+        private void AddInStorage_Click(object sender, RoutedEventArgs e)
+        {
+            new AddIngredientCountWindow(viewModel).ShowDialog();
+        }
+
+        private void AddInUser_Click(object sender, RoutedEventArgs e)
+        {
+            if (viewModel.SelectedUser == null)
+            {
+                MessageBox.Show("Не выбран оператор!");
+                return;
+            }
+            new AddIngredientCountWindow(viewModel,viewModel.SelectedUser).ShowDialog();
+        }
     }
 }

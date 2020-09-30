@@ -37,6 +37,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <ListView Grid.Row="0" ItemsSource="{Binding IngredientCounts}" Margin="1">
                         <ListView.ItemTemplate>
@@ -52,7 +53,8 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <Button Grid.Row="1" Name="AddIngredientCountStorage" Content="Добавить" Margin="1"/>
+                    <Button Grid.Row="1" Content="Добавить на склад" Margin="1" Click="AddInStorage_Click"/>
+                    <Button Grid.Row="2" Content="Выдать со склада" Margin="1" Click="AddInUser_Click"/>
                 </Grid>
                 </GroupBox.Content>
         </GroupBox>

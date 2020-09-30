@@ -9,9 +9,10 @@ namespace CafeMashine.Services
 {
     public class IngredientCountDataStore:IDataStore<IngredientCount>
     {
-        public Task<bool> AddItemAsync(IngredientCount item)
+        public async Task<bool> AddItemAsync(IngredientCount item)
         {
-            throw new NotImplementedException();
+            App.DataBase.AddItem(item);
+            return await Task.FromResult(true);
         }
 
         public Task<bool> UpdateItemAsync(IngredientCount item)
