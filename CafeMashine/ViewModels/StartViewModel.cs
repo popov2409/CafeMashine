@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using CafeMashine.Models;
+using Microsoft.Win32;
+using Newtonsoft.Json;
 
 namespace CafeMashine.ViewModels
 {
@@ -17,7 +21,6 @@ namespace CafeMashine.ViewModels
 
         private User _storageUser;
         private User _selectedUser;
-
 
         private List<IngredientCount> _userIngredientCounts;
 
@@ -68,34 +71,20 @@ namespace CafeMashine.ViewModels
             }
         }
 
-        
-
         public User StorageUser => _storageUser;
-
 
         public User SelectedUser
         {
-            get
-            {
-                return _selectedUser;
-            }
+            get => _selectedUser;
             set
             {
                 _selectedUser = value;
-                
                 OnPropertyChanged("UserIngredientCounts");
             }
 
         }
 
-
-        public List<User> Users
-        {
-            get
-            {
-                return _users.Where(c => c.Name != "Storage").ToList();
-            }
-        }
+        public List<User> Users=> _users.Where(c => c.Name != "Storage").ToList();
 
         public List<IngredientCount> IngredientCounts
         {
@@ -116,7 +105,6 @@ namespace CafeMashine.ViewModels
             }
         }
 
-
         public void AddIngredientsCount(List<IngredientCount> list)
         {
             foreach (IngredientCount ingredientCount in list)
@@ -129,6 +117,24 @@ namespace CafeMashine.ViewModels
 
         }
 
+        public void ExecuteLoadReports(string[] files)
+        {
+            foreach (string file in files)
+            {
+                StreamReader sr=new StreamReader(file);
+                string[] data = sr.ReadLine()?.Split('#').Where(c => c.Length > 2).ToArray();
+                foreach (string s in data)
+                {
+                    Record r = JsonConvert.DeserializeObject<Record>(s);
+                    if(_records.Count(c => c.Id==r.Id)>0) continue;
+                    _records.Add(r);
+                    RecordDataStore.AddItemAsync(r);
+                }
+
+                sr.Close();
+            }
+            OnPropertyChanged("UserIngredientCounts");
+        }
 
     }
 }

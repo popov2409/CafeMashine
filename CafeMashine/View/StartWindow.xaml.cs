@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using CafeMashine.Models;
 using CafeMashine.ViewModels;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 
 namespace CafeMashine.View
@@ -73,6 +74,15 @@ namespace CafeMashine.View
                 return;
             }
             new AddIngredientCountWindow(viewModel,viewModel.SelectedUser).ShowDialog();
+        }
+
+        private void LoadRaports_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd=new OpenFileDialog(){Multiselect = true};
+            if (ofd.ShowDialog() == true)
+            {
+                viewModel.ExecuteLoadReports(ofd.FileNames);
+            }
         }
     }
 }

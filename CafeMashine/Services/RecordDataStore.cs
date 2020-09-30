@@ -9,9 +9,10 @@ namespace CafeMashine.Services
 {
    public class RecordDataStore:IDataStore<Record>
     {
-        public Task<bool> AddItemAsync(Record item)
+        public async Task<bool> AddItemAsync(Record item)
         {
-            throw new NotImplementedException();
+            App.DataBase.AddItem(item);
+            return await Task.FromResult(true);
         }
 
         public Task<bool> UpdateItemAsync(Record item)
