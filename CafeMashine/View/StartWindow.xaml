@@ -41,6 +41,7 @@
         </Grid.ColumnDefinitions>
         <Menu Grid.Row="0" Grid.ColumnSpan="2">
             <MenuItem Header="Загрузить отчеты" Click="LoadRaports_Click"/>
+            <MenuItem Header="Списки автоматов" Click="OpenAvtomatWindow_CLick"></MenuItem>
         </Menu>
         <GroupBox Grid.Row="1" Header="Остатки по складу" >
             <GroupBox.Content>

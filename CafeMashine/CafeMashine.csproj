@@ -78,6 +78,9 @@
     <Compile Include="View\AddIngredientCountWindow.xaml.cs">
       <DependentUpon>AddIngredientCountWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AvtomatWindow.xaml.cs">
+      <DependentUpon>AvtomatWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\BigBaseWindow.xaml.cs">
       <DependentUpon>BigBaseWindow.xaml</DependentUpon>
     </Compile>
@@ -117,6 +120,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\AddIngredientCountWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AvtomatWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

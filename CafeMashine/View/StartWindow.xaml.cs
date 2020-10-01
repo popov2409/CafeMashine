@@ -84,5 +84,10 @@ namespace CafeMashine.View
                 viewModel.ExecuteLoadReports(ofd.FileNames);
             }
         }
+
+        private void OpenAvtomatWindow_CLick(object sender, RoutedEventArgs e)
+        {
+            new AvtomatWindow().ShowDialog();
+        }
     }
 }
