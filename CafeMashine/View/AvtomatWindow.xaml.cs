@@ -26,5 +26,22 @@ namespace CafeMashine.View
             InitializeComponent();
             DataContext = viewModel = new AvtomatViewModel();
         }
+
+        private void EditItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (ValueTextBox.Text.Trim().Length < 1)
+            {
+                MessageBox.Show("Не корректное имя!");
+                return;
+            }
+
+            viewModel.AddItem(ValueTextBox.Text);
+            ValueTextBox.Text = "";
+        }
+
+        private void RemoveItem_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.RemoveSelectedItem();
+        }
     }
 }

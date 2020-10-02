@@ -17,7 +17,7 @@ namespace CafeMashine.ViewModels
         private List<Ingredient> _ingredients;
         private List<Record> _records;
         private List<User> _users;
-        private List<Avtomat> _avtomats;
+        //private List<Avtomat> _avtomats;
 
         private User _storageUser;
         private User _selectedUser;
@@ -32,7 +32,7 @@ namespace CafeMashine.ViewModels
         private async void LoadData()
         {
             _ingredientCounts = (await IngredientCountDataStore.GetItemsAsync(true)).ToList();
-            _avtomats = (await AvtomatDataStore.GetItemsAsync(true)).ToList();
+            //_avtomats = (await AvtomatDataStore.GetItemsAsync(true)).ToList();
             _ingredients = (await IngredientDataStore.GetItemsAsync(true)).ToList();
             _records = (await RecordDataStore.GetItemsAsync(true)).ToList();
             _users = (await UserDataStore.GetItemsAsync(true)).ToList();

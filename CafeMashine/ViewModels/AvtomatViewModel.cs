@@ -14,13 +14,23 @@ namespace CafeMashine.ViewModels
         private List<Avtomat> _avtomats;
         private Avtomat _selectedAvtomat;
 
-        public AvtomatViewModel()
+        public bool EditMode;
+
+        public List<Avtomat> Avtomats
         {
-            LoadList();
+            get
+            {
+                LoadList();
+                return _avtomats;
+            }
         }
 
-        public List<Avtomat> Avtomats => _avtomats;
-
+        public async void RemoveSelectedItem()
+        {
+            if(SelectedItem==null) return;
+            await AvtomatDataStore.DeleteItemAsync(SelectedItem);
+            OnPropertyChanged("Avtomats");
+        }
 
         public Avtomat SelectedItem
         {
@@ -31,6 +41,21 @@ namespace CafeMashine.ViewModels
         private async void LoadList()
         {
             _avtomats = (await AvtomatDataStore.GetItemsAsync(true)).ToList();
+        }
+
+        public void AddItem(string value)
+        {
+            if (!EditMode)
+            {
+                Avtomat at = new Avtomat {Id = Guid.NewGuid().ToString(), Value = value};
+                AvtomatDataStore.AddItemAsync(at);
+            }
+            else 
+            {
+                AvtomatDataStore.UpdateItemAsync(Avtomats.First(c => c.Value.ToLower().Equals(value.ToLower())));
+            }
+
+            OnPropertyChanged("Avtomats");
         }
     }
 }
