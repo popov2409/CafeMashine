@@ -199,15 +199,16 @@ namespace CafeMashine.Services
             {
                 case Avtomat avtomat:
                 {
-                    _avtomats.Remove(_avtomats.First(c => c.Id == avtomat.Id));
-                    _avtomats.Add(avtomat);
+                    var a= _avtomats.First(c => c.Id == avtomat.Id);
+                    a.Value = avtomat.Value;
                     SaveAvtomats();
                     break;
                 }
                 case Ingredient ingredient:
                 {
-                    _ingredients.Remove(_ingredients.First(c => c.Id == ingredient.Id));
-                    _ingredients.Add(ingredient);
+                    var i=_ingredients.First(c => c.Id == ingredient.Id);
+                    i.Value = ingredient.Value;
+                    i.Rank = ingredient.Rank;
                     SaveIngredients();
                     break;
                 }
@@ -227,8 +228,8 @@ namespace CafeMashine.Services
                 }
                 case User user:
                 {
-                    _users.Remove(_users.First(c => c.Id==user.Id));
-                    _users.Add(user);
+                    var u=_users.First(c => c.Id==user.Id);
+                    u.Name = user.Name;
                     SaveUsers();
                     break;
                 }

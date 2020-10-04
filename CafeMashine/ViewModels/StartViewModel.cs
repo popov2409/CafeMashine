@@ -112,7 +112,7 @@ namespace CafeMashine.ViewModels
                 _ingredientCounts.Add(ingredientCount);
                 IngredientCountDataStore.AddItemAsync(ingredientCount);
             }
-            UpdateView();
+            UpdateProperties();
         }
 
         public void ExecuteLoadReports(string[] files)
@@ -134,7 +134,7 @@ namespace CafeMashine.ViewModels
             OnPropertyChanged("UserIngredientCounts");
         }
 
-        public void UpdateView()
+        public void UpdateProperties()
         {
             OnPropertyChanged("IngredientCounts");
             OnPropertyChanged("UserIngredientCounts");

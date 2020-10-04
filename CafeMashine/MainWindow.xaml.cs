@@ -15,9 +15,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CafeMashine.Services;
 using CafeMashine.View;
 using Microsoft.Win32;
 using MyMobile;
+using Ingredient = CafeMashine.Models.Ingredient;
 
 namespace CafeMashine
 {
@@ -30,10 +32,19 @@ namespace CafeMashine
         public MainWindow()
         {
             InitializeComponent();
-            DbProxy.LoadData();
-            InitializeBase();
-            InitializeOperatorPages();
-            TestColumn();
+            List<Ingredient> ing = App.DataBase.Ingredients;
+            int i = 0;
+            foreach (Ingredient ingredient in ing)
+            {
+                ingredient.Rank = i;
+                App.DataBase.UpdateItem(ingredient);
+                i++;
+            }
+
+            //DbProxy.LoadData();
+            //InitializeBase();
+            //InitializeOperatorPages();
+            //TestColumn();
             //DataGridTextColumn col=new DataGridTextColumn(){ Header = "Вася" };
             //var boundItem = IngredientCountDataGrid.CurrentCell.Item;
             //var binding = col.Binding as Binding;
@@ -181,17 +192,17 @@ namespace CafeMashine
         void InitializeBase()
         {
             BaseIngredients = new List<Ingredient>();
-            foreach (Ingredient ingredient in DbProxy.Ingredients)
-            {
-                Ingredient i = new Ingredient()
-                {
-                    Id = ingredient.Id,
-                    Value = ingredient.Value,
-                };
-                i.Count = DbProxy.Bases.Where(c => c.Ingredient == ingredient.Id && c.IsIn).Sum(c => c.Count) -
-                          DbProxy.Bases.Where(c => c.Ingredient == ingredient.Id && !c.IsIn).Sum(c => c.Count);
-                BaseIngredients.Add(i);
-            }
+            //foreach (Ingredient ingredient in DbProxy.Ingredients)
+            //{
+            //    Ingredient i = new Ingredient()
+            //    {
+            //        Id = ingredient.Id,
+            //        Value = ingredient.Value,
+            //    };
+            //    i.Count = DbProxy.Bases.Where(c => c.Ingredient == ingredient.Id && c.IsIn).Sum(c => c.Count) -
+            //              DbProxy.Bases.Where(c => c.Ingredient == ingredient.Id && !c.IsIn).Sum(c => c.Count);
+            //    BaseIngredients.Add(i);
+            //}
          //   IngredientCountDataGrid.ItemsSource = BaseIngredients.OrderBy(c => c.Value).ToList();
 
 

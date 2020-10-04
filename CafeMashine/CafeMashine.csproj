@@ -74,6 +74,7 @@
     <Compile Include="Services\UserDataStore.cs" />
     <Compile Include="ViewModels\AvtomatViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\IngredientViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
     <Compile Include="View\AddIngredientCountWindow.xaml.cs">
       <DependentUpon>AddIngredientCountWindow.xaml</DependentUpon>

@@ -22,7 +22,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-                    <DataGrid Name="BaseListView" AutoGenerateColumns="False">
+                    <DataGrid Name="BaseListView" AutoGenerateColumns="False" CanUserReorderColumns="False" CanUserAddRows="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Ингредиент" Binding="{Binding Ingredient}" MinWidth="150" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Кол-во" Binding="{Binding Count}" />

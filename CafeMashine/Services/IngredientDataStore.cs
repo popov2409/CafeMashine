@@ -9,19 +9,22 @@ namespace CafeMashine.Services
 {
     public class IngredientDataStore:IDataStore<Ingredient>
     {
-        public Task<bool> AddItemAsync(Ingredient item)
+        public async Task<bool> AddItemAsync(Ingredient item)
         {
-            throw new NotImplementedException();
+            App.DataBase.AddItem(item);
+            return await Task.FromResult(true);
         }
 
-        public Task<bool> UpdateItemAsync(Ingredient item)
+        public async Task<bool> UpdateItemAsync(Ingredient item)
         {
-            throw new NotImplementedException();
+            App.DataBase.UpdateItem(item);
+            return await Task.FromResult(true);
         }
 
-        public Task<bool> DeleteItemAsync(Ingredient item)
+        public async Task<bool> DeleteItemAsync(Ingredient item)
         {
-            throw new NotImplementedException();
+            App.DataBase.RemoveItem(item);
+            return await Task.FromResult(true);
         }
 
         public Task<Ingredient> GetItemAsync(string id)

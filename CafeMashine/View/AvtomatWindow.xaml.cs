@@ -37,7 +37,8 @@ namespace CafeMashine.View
 
             viewModel.AddItem(ValueTextBox.Text);
             ValueTextBox.SetBinding(TextBox.TextProperty, new Binding("V") {Source = new object()});
-            ValueTextBox.Text = ""; 
+            ValueTextBox.Text = "";
+            AddButton.Content = "+";
         }
 
         private void RemoveItem_Click(object sender, RoutedEventArgs e)
@@ -47,6 +48,7 @@ namespace CafeMashine.View
 
         private void RenameItem_Click(object sender, RoutedEventArgs e)
         {
+            AddButton.Content = "Ok";
             viewModel.EditMode = true;
             ValueTextBox.SetBinding(TextBox.TextProperty, new Binding("Value") {Source = viewModel.SelectedItem});
         }
