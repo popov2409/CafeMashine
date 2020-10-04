@@ -50,9 +50,10 @@ namespace CafeMashine.ViewModels
                 Avtomat at = new Avtomat {Id = Guid.NewGuid().ToString(), Value = value};
                 AvtomatDataStore.AddItemAsync(at);
             }
-            else 
+            else
             {
-                AvtomatDataStore.UpdateItemAsync(Avtomats.First(c => c.Value.ToLower().Equals(value.ToLower())));
+                AvtomatDataStore.UpdateItemAsync(SelectedItem);
+                EditMode = false;
             }
 
             OnPropertyChanged("Avtomats");

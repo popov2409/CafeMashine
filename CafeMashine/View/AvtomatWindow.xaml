@@ -31,13 +31,13 @@
             <TextBox Name="ValueTextBox" Margin="1" VerticalContentAlignment="Center" />
             <Button Grid.Column="1" Content="+" Margin="1" Click="EditItem_Click"></Button>
         </Grid>
-        <ListView Grid.Row="1" ItemsSource="{Binding Avtomats}" SelectedItem="{Binding SelectedItem}">
+        <ListView Grid.Row="1" Name="AvtomatsListView" ItemsSource="{Binding Avtomats}" SelectedItem="{Binding SelectedItem}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Value}">
                         <TextBlock.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Редактировать"/>
+                                <MenuItem Header="Редактировать" Click="RenameItem_Click"/>
                                 <MenuItem Header="Удалить" Click="RemoveItem_Click"></MenuItem>
                             </ContextMenu>
                         </TextBlock.ContextMenu>

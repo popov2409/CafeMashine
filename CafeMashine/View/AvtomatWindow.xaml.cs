@@ -31,17 +31,24 @@ namespace CafeMashine.View
         {
             if (ValueTextBox.Text.Trim().Length < 1)
             {
-                MessageBox.Show("Не корректное имя!");
+                MessageBox.Show("Введите значение в текстовое поле!");
                 return;
             }
 
             viewModel.AddItem(ValueTextBox.Text);
-            ValueTextBox.Text = "";
+            ValueTextBox.SetBinding(TextBox.TextProperty, new Binding("V") {Source = new object()});
+            ValueTextBox.Text = ""; 
         }
 
         private void RemoveItem_Click(object sender, RoutedEventArgs e)
         {
             viewModel.RemoveSelectedItem();
+        }
+
+        private void RenameItem_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.EditMode = true;
+            ValueTextBox.SetBinding(TextBox.TextProperty, new Binding("Value") {Source = viewModel.SelectedItem});
         }
     }
 }
