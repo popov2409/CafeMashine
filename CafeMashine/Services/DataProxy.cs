@@ -17,12 +17,14 @@ namespace CafeMashine.Services
         private const string INGREDIENTCOUNT_DATA_PATH = "ingredientcount.xml";
         private const string USER_DATA_PATH = "user.xml";
         private const string RECORD_DATA_PATH = "record.xml";
+        private const string USERAVTOMAT_DATA_PATH = "useravtomat.xml";
 
         private List<Avtomat> _avtomats;
         private List<Ingredient> _ingredients;
         private List<IngredientCount> _ingredientCounts;
         private List<User> _users;
         private List<Record> _records;
+        private List<UserAvtomat> _userAvtomats;
         public DataProxy()
         {
             LoadAvtomats();
@@ -30,19 +32,17 @@ namespace CafeMashine.Services
             LoadIngredientCounts();
             LoadUsers();
             LoadRecords();
+            LoadUserAvtomats();
         }
 
         
 
         public List<Avtomat> Avtomats => _avtomats;
-
         public List<Ingredient> Ingredients => _ingredients;
-
         public List<IngredientCount> IngredientCounts => _ingredientCounts;
-
         public List<User> Users => _users;
-
         public List<Record> Records => _records;
+        public List<UserAvtomat> UserAvtomats => _userAvtomats;
 
         private void LoadAvtomats()
         {
@@ -56,6 +56,7 @@ namespace CafeMashine.Services
             }
             catch
             {
+                // ignored
             }
         }
 
@@ -79,6 +80,7 @@ namespace CafeMashine.Services
             }
             catch
             {
+                // ignored
             }
         }
 
@@ -102,6 +104,7 @@ namespace CafeMashine.Services
             }
             catch
             {
+                // ignored
             }
         }
 
@@ -125,6 +128,7 @@ namespace CafeMashine.Services
             }
             catch
             {
+                // ignored
             }
         }
 
@@ -146,6 +150,7 @@ namespace CafeMashine.Services
             }
             catch
             {
+                // ignored
             }
         }
         private void SaveRecords()
@@ -153,6 +158,30 @@ namespace CafeMashine.Services
             StreamWriter writer = new StreamWriter(Path.Combine(DATA_FOLDER_PATH, RECORD_DATA_PATH), false);
             XmlSerializer serializer = new XmlSerializer(typeof(List<Record>));
             serializer.Serialize(writer, _records);
+            writer.Close();
+        }
+
+        private void LoadUserAvtomats()
+        {
+            _userAvtomats = new List<UserAvtomat>();
+            try
+            {
+                StreamReader reader = new StreamReader(Path.Combine(DATA_FOLDER_PATH, USERAVTOMAT_DATA_PATH));
+                XmlSerializer serializer = new XmlSerializer(typeof(List<UserAvtomat>));
+                _userAvtomats = (List<UserAvtomat>)serializer.Deserialize(reader);
+                reader.Close();
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+
+        private void SaveUserAvtomats()
+        {
+            StreamWriter writer = new StreamWriter(Path.Combine(DATA_FOLDER_PATH, USERAVTOMAT_DATA_PATH), false);
+            XmlSerializer serializer = new XmlSerializer(typeof(List<UserAvtomat>));
+            serializer.Serialize(writer, _userAvtomats);
             writer.Close();
         }
 
@@ -188,6 +217,12 @@ namespace CafeMashine.Services
                 {
                     _users.Add(user);
                     SaveUsers();
+                    break;
+                }
+                case UserAvtomat userAvtomat:
+                {
+                    _userAvtomats.Add(userAvtomat);
+                    SaveUserAvtomats();
                     break;
                 }
             }
@@ -233,6 +268,14 @@ namespace CafeMashine.Services
                     SaveUsers();
                     break;
                 }
+                case UserAvtomat userAvtomat:
+                {
+                    var ua = _userAvtomats.First(c => c.Id == userAvtomat.Id);
+                    ua.User = userAvtomat.User;
+                    ua.Avtomat = userAvtomat.Avtomat;
+                    SaveUserAvtomats();
+                    break;
+                }
             }
         }
 
@@ -268,6 +311,12 @@ namespace CafeMashine.Services
                 {
                     _users.Remove(_users.First(c => c.Id == user.Id));
                     SaveUsers();
+                    break;
+                }
+                case UserAvtomat userAvtomat:
+                {
+                    _userAvtomats.Remove(userAvtomat);
+                    SaveUserAvtomats();
                     break;
                 }
             }

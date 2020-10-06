@@ -15,19 +15,21 @@ namespace CafeMashine.Services
             return await Task.FromResult(true);
         }
 
-        public Task<bool> UpdateItemAsync(User item)
+        public async Task<bool> UpdateItemAsync(User item)
         {
-            throw new NotImplementedException();
+            App.DataBase.UpdateItem(item);
+            return await Task.FromResult(true);
         }
 
-        public Task<bool> DeleteItemAsync(User item)
+        public async Task<bool> DeleteItemAsync(User item)
         {
-            throw new NotImplementedException();
+            App.DataBase.RemoveItem(item);
+            return await Task.FromResult(true);
         }
 
-        public Task<User> GetItemAsync(string id)
+        public async Task<User> GetItemAsync(string id)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(App.DataBase.Users.First(c => c.Id == id));
         }
 
         public async Task<IEnumerable<User>> GetItemsAsync(bool forceRefresh = false)
@@ -35,9 +37,10 @@ namespace CafeMashine.Services
             return await Task.FromResult(App.DataBase.Users.OrderBy(c=>c.Name));
         }
 
-        public Task<IEnumerable<User>> GetSearchResults(string query)
+        public async Task<IEnumerable<User>> GetSearchResults(string query)
         {
-            throw new NotImplementedException();
+            return await Task.FromResult(App.DataBase.Users.Where(c => c.Name.ToLower().Contains(query.ToLower()))
+                .OrderBy(c => c.Name));
         }
     }
 }

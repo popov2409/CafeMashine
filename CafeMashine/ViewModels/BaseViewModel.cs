@@ -19,12 +19,14 @@ namespace CafeMashine.ViewModels
         private IDataStore<User> _userStore;
         private IDataStore<Ingredient> _ingredientStore;
         private IDataStore<IngredientCount> _ingredienCountStore;
+        private IDataStore<UserAvtomat> _useravtomatDataStore;
         public IDataStore<Avtomat> AvtomatDataStore => _avtomatStore ?? new AvomatDataStore();
         public IDataStore<Record> RecordDataStore => _recordStore ?? new RecordDataStore();
         public IDataStore<User> UserDataStore => _userStore ?? new UserDataStore();
         public IDataStore<Ingredient> IngredientDataStore => _ingredientStore ?? new IngredientDataStore();
         public IDataStore<IngredientCount> IngredientCountDataStore =>
             _ingredienCountStore ?? new IngredientCountDataStore();
+        public IDataStore<UserAvtomat> UserAvtomatDataStore => _useravtomatDataStore ?? new UserAvtomatDataStore();
 
 
         public event PropertyChangedEventHandler PropertyChanged;

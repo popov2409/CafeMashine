@@ -64,6 +64,7 @@
     <Compile Include="Models\IngredientCount.cs" />
     <Compile Include="Models\Record.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserAvtomat.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Services\AvomatDataStore.cs" />
     <Compile Include="Services\DataProxy.cs" />
@@ -71,11 +72,13 @@
     <Compile Include="Services\IngredientCountDataStore.cs" />
     <Compile Include="Services\IngredientDataStore.cs" />
     <Compile Include="Services\RecordDataStore.cs" />
+    <Compile Include="Services\UserAvtomatDataStore.cs" />
     <Compile Include="Services\UserDataStore.cs" />
     <Compile Include="ViewModels\AvtomatViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\IngredientViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="View\AddIngredientCountWindow.xaml.cs">
       <DependentUpon>AddIngredientCountWindow.xaml</DependentUpon>
     </Compile>
@@ -88,9 +91,6 @@
     <Compile Include="View\IngredientWindow.xaml.cs">
       <DependentUpon>IngredientWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\OperatorView.xaml.cs">
-      <DependentUpon>OperatorView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\StartWindow.xaml.cs">
       <DependentUpon>StartWindow.xaml</DependentUpon>
     </Compile>
@@ -99,6 +99,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DbProxy.cs" />
+    <Compile Include="View\UserWindow.xaml.cs">
+      <DependentUpon>UserWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Themes\BureauBlue.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -119,11 +122,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\OperatorView.xaml">
+    <Page Include="View\StartWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\StartWindow.xaml">
+    <Page Include="View\UserWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

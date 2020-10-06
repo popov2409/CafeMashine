@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CafeMashine.View"
         mc:Ignorable="d"
-        Title="Оператор" Height="600" Width="800" WindowStartupLocation="CenterScreen">
+        Title="База" Height="600" Width="800" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <Style TargetType="GroupBox">
             <Setter Property="FontSize" Value="20"/>
@@ -43,6 +43,7 @@
             <MenuItem Header="Загрузить отчеты" Click="LoadRaports_Click"/>
             <MenuItem Header="Списки автоматов" Click="OpenAvtomatWindow_CLick"/>
             <MenuItem Header="Списки ингредиентов" Click="OpenIngredientWindow_CLick"/>
+            <MenuItem Header="Списки операторов" Click="OpenUserWindow_CLick"/>
         </Menu>
         <GroupBox Grid.Row="1" Header="Остатки по складу" >
             <GroupBox.Content>

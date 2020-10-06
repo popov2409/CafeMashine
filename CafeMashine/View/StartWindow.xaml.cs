@@ -98,5 +98,14 @@ namespace CafeMashine.View
                 DataContext = viewModel = new StartViewModel();
             }
         }
+
+        private void OpenUserWindow_CLick(object sender, RoutedEventArgs e)
+        {
+            var result = new UserWindow().ShowDialog();
+            if (result == true)
+            {
+                DataContext = viewModel = new StartViewModel();
+            }
+        }
     }
 }
