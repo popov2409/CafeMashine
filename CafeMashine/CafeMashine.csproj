@@ -85,9 +85,6 @@
     <Compile Include="View\AvtomatWindow.xaml.cs">
       <DependentUpon>AvtomatWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ImportDataView.xaml.cs">
-      <DependentUpon>ImportDataView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\IngredientWindow.xaml.cs">
       <DependentUpon>IngredientWindow.xaml</DependentUpon>
     </Compile>
@@ -98,7 +95,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DbProxy.cs" />
     <Compile Include="View\UserWindow.xaml.cs">
       <DependentUpon>UserWindow.xaml</DependentUpon>
     </Compile>
@@ -111,10 +107,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AvtomatWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ImportDataView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

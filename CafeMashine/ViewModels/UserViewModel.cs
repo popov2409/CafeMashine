@@ -5,8 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using CafeMashine.Models;
 using CafeMashine.Services;
-using MyMobile;
-using Avtomat = CafeMashine.Models.Avtomat;
 
 namespace CafeMashine.ViewModels
 {
