@@ -12,6 +12,8 @@ namespace CafeMashine.ViewModels
         private List<Ingredient> _ingredients;
         private Ingredient _selectedIngredient;
 
+        public bool EditMode;
+
         public List<Ingredient> Ingredients
         {
             get
@@ -69,6 +71,23 @@ namespace CafeMashine.ViewModels
             }
             _ingredients.Remove(SelectedItem);
             IngredientDataStore.DeleteItemAsync(SelectedItem);
+            OnPropertyChanged("Ingredients");
+        }
+
+        public void AddItem(string value)
+        {
+            if (!EditMode)
+            {
+                Ingredient ing = new Ingredient
+                    {Id = Guid.NewGuid().ToString(), Value = value, Rank = _ingredients.Max(c => c.Rank) + 1};
+                IngredientDataStore.AddItemAsync(ing);
+            }
+            else
+            {
+                IngredientDataStore.UpdateItemAsync(SelectedItem);
+                EditMode = false;
+            }
+
             OnPropertyChanged("Ingredients");
         }
     }

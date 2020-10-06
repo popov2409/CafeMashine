@@ -89,5 +89,14 @@ namespace CafeMashine.View
         {
             new AvtomatWindow().ShowDialog();
         }
+
+        private void OpenIngredientWindow_CLick(object sender, RoutedEventArgs e)
+        {
+            var result= new IngredientWindow().ShowDialog();
+            if (result==true)
+            {
+                DataContext = viewModel = new StartViewModel();
+            }
+        }
     }
 }

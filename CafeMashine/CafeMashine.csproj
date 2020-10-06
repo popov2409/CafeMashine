@@ -82,17 +82,11 @@
     <Compile Include="View\AvtomatWindow.xaml.cs">
       <DependentUpon>AvtomatWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\BigBaseWindow.xaml.cs">
-      <DependentUpon>BigBaseWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\EditAvtomatsIngredients.xaml.cs">
-      <DependentUpon>EditAvtomatsIngredients.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\ImportDataView.xaml.cs">
       <DependentUpon>ImportDataView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\OperatorData.xaml.cs">
-      <DependentUpon>OperatorData.xaml</DependentUpon>
+    <Compile Include="View\IngredientWindow.xaml.cs">
+      <DependentUpon>IngredientWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\OperatorView.xaml.cs">
       <DependentUpon>OperatorView.xaml</DependentUpon>
@@ -100,22 +94,11 @@
     <Compile Include="View\StartWindow.xaml.cs">
       <DependentUpon>StartWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\StepIngredientsWindow.xaml.cs">
-      <DependentUpon>StepIngredientsWindow.xaml</DependentUpon>
-    </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DbProxy.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Page Include="Themes\BureauBlue.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -128,19 +111,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\BigBaseWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\EditAvtomatsIngredients.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\ImportDataView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\OperatorData.xaml">
+    <Page Include="View\IngredientWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -149,10 +124,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\StartWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\StepIngredientsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
