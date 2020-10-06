@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CafeMashine.View"
         mc:Ignorable="d"
-        Title="Списки автоматов" Height="500" Width="350" WindowStartupLocation="CenterScreen">
+        Title="Списки автоматов" Height="500" Width="350" WindowStartupLocation="CenterScreen" Icon="/CafeMashine;component/Icons/avtomats.png">
     <Window.Resources>
         <Style TargetType="TextBox">
             <Setter Property="FontSize" Value="18"></Setter>

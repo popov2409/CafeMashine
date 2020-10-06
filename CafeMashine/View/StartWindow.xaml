@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CafeMashine.View"
         mc:Ignorable="d"
-        Title="База" Height="600" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Склад" Height="600" Width="800" WindowStartupLocation="CenterScreen" Icon="/CafeMashine;component/Icons/storage.png">
     <Window.Resources>
         <Style TargetType="GroupBox">
             <Setter Property="FontSize" Value="20"/>
