@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using CafeMashine.Controls;
 using CafeMashine.Models;
 using CafeMashine.ViewModels;
 
@@ -54,20 +55,13 @@ namespace CafeMashine.View
 
         private void AddItems_Click(object sender, RoutedEventArgs e)
         {
-             List<IngredientCount> _ingredientCounts=new List<IngredientCount>();
-             foreach (IngredientCount ingredientCount in _startList.Where(c=>c.Count>0))
-             {
-                 IngredientCount ic=new IngredientCount()
-                 {
-                     Id = ingredientCount.Id,
-                     Date = ingredientCount.Date,
-                     Count = ingredientCount.Count,
-                     User = user.Id,
-                     Ingredient = ingredients.First(c=>c.Value.Equals(ingredientCount.Ingredient)).Id,
-                 };
-                 _ingredientCounts.Add(ic);
-             }
-             viewModel.AddIngredientsCount(_ingredientCounts);
+            foreach (IngredientCount item in BaseListView.Items)
+            {
+               if(item.Count==0) continue;
+               item.User = user.Id;
+               item.Ingredient = viewModel.Ingredients.First(c => c.Value.Equals(item.Ingredient)).Id;
+               viewModel.AddIngredientsCount(item);
+            }
             this.Close();
         }
 
@@ -76,5 +70,13 @@ namespace CafeMashine.View
             this.Close();
         }
 
+        private void DownValue_Click(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void UpValue_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

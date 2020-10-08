@@ -43,7 +43,10 @@ namespace CafeMashine.View
             }
 
             viewModel.AddItem(NameUserTextBox.Text);
+            NameUserTextBox.SetBinding(TextBox.TextProperty, new Binding("V") { Source = new object() });
             NameUserTextBox.Text = "";
+            AddButton.Content = "+";
+            res = true;
         }
 
         private void Checked_Click(object sender, RoutedEventArgs e)
@@ -54,6 +57,25 @@ namespace CafeMashine.View
         private void Unchecked_Click(object sender, RoutedEventArgs e)
         {
             viewModel.UnCheckAvtomat(((TextBlock)((Grid)((CheckBox)sender).Parent).Children[1]).Text);
+        }
+
+        private void RenameUser_Click(object sender, RoutedEventArgs e)
+        {
+            AddButton.Content = "Ok";
+            viewModel.EditMode = true;
+            NameUserTextBox.SetBinding(TextBox.TextProperty, new Binding("Name") { Source = viewModel.SelectedUser });
+            res = true;
+        }
+
+        private void DeleteUser_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.RemoveUser();
+            res = true;
+        }
+
+        private void CreateDataFile_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

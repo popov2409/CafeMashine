@@ -15,11 +15,11 @@
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
             <Setter Property="VerticalAlignment" Value="Stretch"/>
         </Style>
-        <Style TargetType="ListView">
+        <Style x:Key="ListViewStyle" TargetType="{x:Type ListView}">
             <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Background" Value="AliceBlue" />
-            <Setter Property="BorderBrush" Value="BlanchedAlmond" />
-            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Background" Value="WhiteSmoke" />
+            <Setter Property="BorderBrush" Value="Gainsboro" />
+            <Setter Property="BorderThickness" Value="1" />
             <Style.Triggers>
                 <Trigger Property="IsSelected" Value="True">
                     <Setter Property="Background" Value="Black" />
@@ -53,12 +53,12 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <ListView Grid.Row="0" ItemsSource="{Binding IngredientCounts}" Margin="1" >
+                    <ListView Grid.Row="0" FontSize="18" ItemsSource="{Binding IngredientCounts}" Margin="1" BorderBrush="Transparent" Background="Transparent" IsManipulationEnabled="False" ScrollViewer.HorizontalScrollBarVisibility="Disabled" IsTextSearchEnabled="False" >
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="1*" />
                                         <ColumnDefinition Width="40"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Text="{Binding Ingredient,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
@@ -79,14 +79,14 @@
                         <ColumnDefinition Width="0.7*"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <ListView Grid.Column="0" ItemsSource="{Binding Users}" Margin="1" SelectedItem="{Binding SelectedUser}">
+                    <ListView Grid.Column="0" ItemsSource="{Binding Users}" Margin="1" SelectedItem="{Binding SelectedUser}" Style="{StaticResource ListViewStyle}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Name}"/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <ListView Grid.Column="1" ItemsSource="{Binding UserIngredientCounts}" Margin="1">
+                    <ListView Grid.Column="1" ItemsSource="{Binding UserIngredientCounts}" Margin="1" Style="{StaticResource ListViewStyle}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>

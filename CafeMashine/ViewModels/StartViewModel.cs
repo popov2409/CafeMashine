@@ -73,6 +73,7 @@ namespace CafeMashine.ViewModels
 
         public User StorageUser => _storageUser;
 
+        public List<Ingredient> Ingredients => _ingredients;
         public User SelectedUser
         {
             get => _selectedUser;
@@ -105,14 +106,16 @@ namespace CafeMashine.ViewModels
             }
         }
 
-        public void AddIngredientsCount(List<IngredientCount> list)
+        public void AddIngredientsCount(IngredientCount item)
         {
-            foreach (IngredientCount ingredientCount in list)
-            {
-                _ingredientCounts.Add(ingredientCount);
-                IngredientCountDataStore.AddItemAsync(ingredientCount);
-            }
+            _ingredientCounts.Add(item);
+            IngredientCountDataStore.AddItemAsync(item);
             UpdateProperties();
+        }
+
+        public void ClearAllData()
+        {
+
         }
 
         public void ExecuteLoadReports(string[] files)

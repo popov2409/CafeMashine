@@ -6,6 +6,18 @@
         xmlns:local="clr-namespace:CafeMashine.View"
         mc:Ignorable="d"
         Title="Операторы" Height="450" Width="600" WindowStartupLocation="CenterScreen" Closing="Window_Closing" Icon="/CafeMashine;component/Icons/users.png">
+        <Window.Resources>
+            <Style TargetType="ListView">
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="FontSize" Value="16"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+            </Style>
+        </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.4*"/>
@@ -21,15 +33,25 @@
                     <Grid Row="0" Margin="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
-                            <ColumnDefinition Width="0.1*"/>
+                            <ColumnDefinition Width="0.15*"/>
                         </Grid.ColumnDefinitions>
                         <TextBox Grid.Column="0" Name="NameUserTextBox"/>
-                        <Button Grid.Column="1" Click="AddUser_Click" Content="+"/>
+                        <Button Name="AddButton" Grid.Column="1" Click="AddUser_Click" Content="+"/>
                     </Grid>
                     <ListView Grid.Row="1" ItemsSource="{Binding Users}" Margin="1" SelectedItem="{Binding SelectedUser}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock Text="{Binding Name}"/>
+                                <TextBlock Text="{Binding Name}">
+                                    <TextBlock.ContextMenu>
+                                        <ContextMenu>
+                                            <MenuItem Header="Переименовать" Click="RenameUser_Click"/>
+                                            <MenuItem Header="Удалить" Click="DeleteUser_Click"/>
+                                            <Separator/>
+                                            <MenuItem Header="Создать файл данных" Click="CreateDataFile_Click"/>
+
+                                        </ContextMenu>
+                                    </TextBlock.ContextMenu>
+                                </TextBlock>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>

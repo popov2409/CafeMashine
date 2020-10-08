@@ -26,7 +26,7 @@ namespace CafeMashine.Models
         public string Date { get; set; }
         
         /// <summary>
-        /// Пользователь
+        /// Id Пользователя
         /// </summary>
         public string User { get; set; }
     }

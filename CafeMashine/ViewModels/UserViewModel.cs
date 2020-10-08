@@ -105,6 +105,18 @@ namespace CafeMashine.ViewModels
             OnPropertyChanged("Users");
         }
 
+        public void RemoveUser()
+        {
+            if(_selectedUser==null) return;
+            var au = _userAvtomats.Where(c => c.User == _selectedUser.Id);
+            UserDataStore.DeleteItemAsync(_selectedUser);
+            foreach (UserAvtomat userAvtomat in au)
+            {
+                UserAvtomatDataStore.DeleteItemAsync(userAvtomat);
+            }
+            OnPropertyChanged("Users");
+        }
+
         public class AvtomatCheck
         {
             public bool IsCheck { get; set; }
