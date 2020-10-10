@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>warehouse_122331.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
@@ -64,7 +67,6 @@
     <Compile Include="Controls\Stepper.xaml.cs">
       <DependentUpon>Stepper.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\StepperViewModel.cs" />
     <Compile Include="Models\Avtomat.cs" />
     <Compile Include="Models\Ingredient.cs" />
     <Compile Include="Models\IngredientCount.cs" />
@@ -83,7 +85,9 @@
     <Compile Include="ViewModels\AvtomatViewModel.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\IngredientViewModel.cs" />
+    <Compile Include="ViewModels\ReportViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
+    <Compile Include="ViewModels\UserDataViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="View\AddIngredientCountWindow.xaml.cs">
       <DependentUpon>AddIngredientCountWindow.xaml</DependentUpon>
@@ -93,6 +97,9 @@
     </Compile>
     <Compile Include="View\IngredientWindow.xaml.cs">
       <DependentUpon>IngredientWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ReportWindow.xaml.cs">
+      <DependentUpon>ReportWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StartWindow.xaml.cs">
       <DependentUpon>StartWindow.xaml</DependentUpon>
@@ -121,6 +128,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\IngredientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ReportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -178,6 +189,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\minus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="warehouse_122331.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\report.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

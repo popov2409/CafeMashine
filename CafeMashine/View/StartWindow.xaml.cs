@@ -107,5 +107,10 @@ namespace CafeMashine.View
                 DataContext = viewModel = new StartViewModel();
             }
         }
+
+        private void ReportStorage_Click(object sender, RoutedEventArgs e)
+        {
+            new ReportWindow(viewModel.StorageUser).ShowDialog();
+        }
     }
 }

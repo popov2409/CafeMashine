@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using CafeMashine.Annotations;
 
 namespace CafeMashine.Controls
@@ -23,16 +24,36 @@ namespace CafeMashine.Controls
     /// </summary>
     public partial class Stepper : UserControl
     {
+        private DispatcherTimer timer;
         public Stepper()
         {
             InitializeComponent();
             ValueTextBlock.Text = Value.ToString();
-            //DataContext = viewModel = new StepperViewModel();
+            InitializeTimer();
+        }
+
+        void InitializeTimer()
+        {
+            timer=new DispatcherTimer();
+            timer.Interval = new TimeSpan(0,0,0,0,100);
+            timer.Tick+=TimerOnTick;
+        }
+
+        private int step = 0;
+        private void TimerOnTick(object sender, EventArgs e)
+        {
+            pause++;
+            if (pause < 2)
+            {
+                return;
+            }
+            if(Value==0 && step<0) return;
+            Value += pause > 10 ? step * 2 : step;
+            ValueTextBlock.Text = Value.ToString();
         }
 
         private void UpValue_Click(object sender, RoutedEventArgs e)
         {
-            //viewModel.Value++;
             Value++;
             ValueTextBlock.Text = Value.ToString();
         }
@@ -42,8 +63,6 @@ namespace CafeMashine.Controls
             if (Value == 0) return;
             Value--;
             ValueTextBlock.Text = Value.ToString();
-            //if(viewModel.Value==0) return;
-            //viewModel.Value--;
         }
 
 
@@ -66,5 +85,25 @@ namespace CafeMashine.Controls
             // Do additional logic
         }
 
+        private int pause = 0;
+        private void UpButton_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+            step = 1;
+            timer.Start();
+        }
+
+        private void UpButton_OnPreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            pause = 0;
+            step = 0;
+            timer.Stop();
+        }
+
+        private void DownButton_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            step = -1;
+            timer.Start();
+        }
     }
 }

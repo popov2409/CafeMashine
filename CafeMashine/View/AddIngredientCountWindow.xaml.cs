@@ -45,7 +45,7 @@ namespace CafeMashine.View
                 {
                     Id = Guid.NewGuid().ToString(),
                     Ingredient = ingredient.Value,
-                    Date = DateTime.Now.ToShortDateString(),
+                    Date = RecordDatePicker.SelectedDate.Value.ToShortDateString(),
                     Count = 0
                 });
             }
@@ -60,6 +60,7 @@ namespace CafeMashine.View
                if(item.Count==0) continue;
                item.User = user.Id;
                item.Ingredient = viewModel.Ingredients.First(c => c.Value.Equals(item.Ingredient)).Id;
+               item.Date = RecordDatePicker.SelectedDate.Value.ToShortDateString();
                viewModel.AddIngredientsCount(item);
             }
             this.Close();

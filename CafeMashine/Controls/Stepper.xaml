@@ -16,7 +16,7 @@
             <ColumnDefinition />
             <ColumnDefinition Width="0.5*"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="0" Name="DownButton" Content="{StaticResource MinBut}" Click="DownValue_Click">
+        <Button Grid.Column="0" Name="DownButton" Content="{StaticResource MinBut}" Click="DownValue_Click" PreviewMouseUp="UpButton_OnPreviewMouseUp" PreviewMouseDown="DownButton_OnPreviewMouseDown">
 
             <Button.Resources>
             <Style TargetType="Border">
@@ -31,7 +31,7 @@
                 </Style>
             </TextBlock.Resources>-->
         </TextBlock>
-        <Button Grid.Column="2" Name="UpButton" Content="{StaticResource AddBut}" Click="UpValue_Click">
+        <Button Grid.Column="2" Name="UpButton" Content="{StaticResource AddBut}" Click="UpValue_Click" PreviewMouseDown="UpButton_OnPreviewMouseDown" PreviewMouseUp="UpButton_OnPreviewMouseUp">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="4"/>

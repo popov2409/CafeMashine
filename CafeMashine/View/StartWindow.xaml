@@ -39,11 +39,12 @@
             <ColumnDefinition Width="0.5*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Menu Grid.Row="0" Grid.ColumnSpan="2">
+        <Menu Grid.Row="0" Grid.ColumnSpan="2" FontSize="14">
             <MenuItem Header="Загрузить отчеты" Click="LoadRaports_Click"/>
             <MenuItem Header="Списки автоматов" Click="OpenAvtomatWindow_CLick"/>
             <MenuItem Header="Списки ингредиентов" Click="OpenIngredientWindow_CLick"/>
             <MenuItem Header="Списки операторов" Click="OpenUserWindow_CLick"/>
+            <MenuItem Header="Отчет по складу" Click="ReportStorage_Click"/>
         </Menu>
         <GroupBox Grid.Row="1" Header="Остатки по складу" >
             <GroupBox.Content>

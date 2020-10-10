@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using CafeMashine.Models;
 using CafeMashine.Services;
+using Newtonsoft.Json;
 
 namespace CafeMashine.ViewModels
 {
@@ -115,6 +118,38 @@ namespace CafeMashine.ViewModels
                 UserAvtomatDataStore.DeleteItemAsync(userAvtomat);
             }
             OnPropertyChanged("Users");
+        }
+
+        public async void CreateUserDataFile()
+        {
+            if (_selectedUser == null) return;
+            var l_avtomats = (await UserAvtomatDataStore.GetItemsAsync(true)).Where(c => c.User == _selectedUser.Id)
+                .Select(c => c.Avtomat);
+            if (l_avtomats == null || !l_avtomats.Any())
+            {
+                MessageBox.Show("Для данного оператора не указаны атоматы!");
+                return;
+            }
+            List<Avtomat> uAvtomats = new List<Avtomat>();
+            foreach (string s in l_avtomats)
+            {
+                uAvtomats.Add((await AvtomatDataStore.GetItemsAsync()).First(c => c.Id == s));
+            }
+
+            StreamWriter sr = new StreamWriter("LIST.txt", false);
+            sr.WriteLine(JsonConvert.SerializeObject(_selectedUser));
+            foreach (Avtomat avtomat in uAvtomats)
+            {
+                sr.WriteLine(JsonConvert.SerializeObject(avtomat));
+            }
+            sr.WriteLine("#");
+            var _ingredients = await IngredientDataStore.GetItemsAsync(true);
+            foreach (Ingredient ingredient in _ingredients)
+            {
+                sr.WriteLine(JsonConvert.SerializeObject(ingredient));
+            }
+            sr.Close();
+            MessageBox.Show("Файл данных LIST.txt готов!");
         }
 
         public class AvtomatCheck

@@ -75,7 +75,7 @@ namespace CafeMashine.View
 
         private void CreateDataFile_Click(object sender, RoutedEventArgs e)
         {
-            
+            viewModel.CreateUserDataFile();
         }
     }
 }
