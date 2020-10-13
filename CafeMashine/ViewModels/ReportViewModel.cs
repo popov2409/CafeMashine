@@ -8,17 +8,70 @@ using CafeMashine.Services;
 
 namespace CafeMashine.ViewModels
 {
+    public class UserReport
+    {
+        public UserReport()
+        {
+            Children=new List<UserReport>();
+        }
+
+        public string Value
+        {
+            get;
+            set;
+        }
+
+        public List<UserReport> Children { get; set; }
+    }
+
     public class ReportViewModel:BaseViewModel
     {
         private List<Ingredient> _ingredients;
         private List<IngredientCount> _ingredientCounts;
         private List<User> _users;
+        private List<Avtomat> _avtomats;
+        private List<Record> _records;
 
-        public List<List<string>> GetUserReport(User user)
+        public List<UserReport> GetUserReport(User user,DateTime startDate, DateTime endDate)
         {
-            List<List<string>> resultList=new List<List<string>>();
+            List<UserReport> result=new List<UserReport>();
+            LoadIngredients();
+            LoadUsers();
+            LoadRecods();
+            LoadAvtomats();
+            var needRec = _records
+                .Where(c => c.User == user.Id && DateTime.Parse(c.Date) >= startDate &&
+                            DateTime.Parse(c.Date) <= endDate).OrderBy(c => DateTime.Parse(c.Date)).ThenBy(c=>c.Ingredient).ToList();
+            if (!needRec.Any()) return result;
+            List<string> dates = needRec.Select(c => c.Date).Distinct().ToList();
+            foreach (string date in dates)
+            {
+                UserReport dateReport=new UserReport(){Value = date};
+                foreach (Ingredient ingredient in _ingredients)
+                {
+                    UserReport ingredientReport = new UserReport() {Value = ingredient.Value};
+                    var recs = needRec.Where(c => c.Date == date && c.Ingredient == ingredient.Id).ToList();
+                    if (recs.Count == 0)
+                    {
+                        ingredientReport.Value += " - 0";
+                    }
+                    else
+                    {
+                        ingredientReport.Value += $" - {recs.Sum(c => c.Count)}";
+                        foreach (Record rec in recs)
+                        {
+                            UserReport avtomatReport = new UserReport()
+                                {Value = $"{_avtomats.First(c => c.Id == rec.Avtomat).Value} - {rec.Count}"};
+                            ingredientReport.Children.Add(avtomatReport);
+                        }
 
-            return resultList;
+                        ingredientReport.Children = ingredientReport.Children.OrderBy(c => c.Value).ToList();
+                    }
+                    dateReport.Children.Add(ingredientReport);
+                }
+                result.Add(dateReport);
+            }
+            return result;
         }
 
         async void LoadIngredients()
@@ -26,9 +79,9 @@ namespace CafeMashine.ViewModels
             _ingredients = (await IngredientDataStore.GetItemsAsync(true)).ToList();
         }
 
-        async void LoadIngredientsCount()
+        async void LoadIngredientsCount(DateTime startDate,DateTime endDate)
         {
-            _ingredientCounts = (await IngredientCountDataStore.GetItemsAsync(true))
+            _ingredientCounts = (await IngredientCountDataStore.GetItemsAsync(true)).Where(c=>DateTime.Parse(c.Date)>=startDate&& DateTime.Parse(c.Date) <= endDate)
                 .OrderBy(c => DateTime.Parse(c.Date)).ThenBy(c=>c.User).ToList();
         }
 
@@ -37,12 +90,23 @@ namespace CafeMashine.ViewModels
             _users = (await UserDataStore.GetItemsAsync(true)).ToList();
         }
 
-        public List<List<string>> GetStorageReport()
+        async void LoadRecods()
+        {
+            _records = (await RecordDataStore.GetItemsAsync(true)).ToList();
+        }
+
+        async void LoadAvtomats()
+        {
+            _avtomats = (await AvtomatDataStore.GetItemsAsync(true)).ToList();
+        }
+
+        public List<List<string>> GetStorageReport(DateTime startDate,DateTime endDate)
         {
             LoadIngredients();
-            LoadIngredientsCount();
+            LoadIngredientsCount(startDate,endDate);
             LoadUsers();
             List<List<string>> resultList = new List<List<string>>();
+            if (_ingredientCounts.Count == 0) return resultList;
             List<string> headers=new List<string>();
             headers.Add("Дата");
             headers.Add("Получено/Выдано");

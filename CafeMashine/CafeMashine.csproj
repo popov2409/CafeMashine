@@ -67,6 +67,12 @@
     <Compile Include="Controls\Stepper.xaml.cs">
       <DependentUpon>Stepper.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\TimeReportControl.xaml.cs">
+      <DependentUpon>TimeReportControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UserReporterGrid.xaml.cs">
+      <DependentUpon>UserReporterGrid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\Avtomat.cs" />
     <Compile Include="Models\Ingredient.cs" />
     <Compile Include="Models\IngredientCount.cs" />
@@ -87,6 +93,7 @@
     <Compile Include="ViewModels\IngredientViewModel.cs" />
     <Compile Include="ViewModels\ReportViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
+    <Compile Include="ViewModels\StorageReportViewModel.cs" />
     <Compile Include="ViewModels\UserDataViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="View\AddIngredientCountWindow.xaml.cs">
@@ -108,10 +115,29 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="View\StorageReportWindow.xaml.cs">
+      <DependentUpon>StorageReportWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserWindow.xaml.cs">
       <DependentUpon>UserWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Controls\Stepper.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\TimeReportControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\UserReporterGrid.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\BaseStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\StorageReportStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -136,6 +162,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\StartWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StorageReportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -195,6 +225,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\report.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\print.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

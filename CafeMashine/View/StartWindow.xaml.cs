@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -111,6 +112,24 @@ namespace CafeMashine.View
         private void ReportStorage_Click(object sender, RoutedEventArgs e)
         {
             new ReportWindow(viewModel.StorageUser).ShowDialog();
+        }
+
+        private void ReportUser_Click(object sender, RoutedEventArgs e)
+        {
+            if(viewModel.SelectedUser==null) return;
+            ReportViewModel report =new ReportViewModel();
+            List<UserReport> res = report.GetUserReport(viewModel.SelectedUser,
+                DateTime.Parse("1.01." + DateTime.Now.Year), DateTime.Parse("31.12." + DateTime.Now.Year));
+            treeView1.ItemsSource = res;
+            //new ReportWindow(viewModel.SelectedUser).ShowDialog();
+        }
+
+        private void SelectUserClick(object sender, SelectionChangedEventArgs e)
+        {
+            ReportViewModel report = new ReportViewModel();
+            List<UserReport> res = report.GetUserReport(viewModel.SelectedUser,
+                DateTime.Parse("1.01." + DateTime.Now.Year), DateTime.Parse("31.12." + DateTime.Now.Year));
+            treeView1.ItemsSource = res;
         }
     }
 }

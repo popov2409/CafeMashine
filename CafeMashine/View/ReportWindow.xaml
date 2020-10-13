@@ -5,59 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CafeMashine.View"
         mc:Ignorable="d"
-        Title="Отчет" Height="450" Width="800" Icon="/CafeMashine;component/Icons/report.png">
-    <Window.Resources>
-        <Style x:Key="BaseTextBlockStyle" TargetType="{x:Type TextBlock}">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="Margin" Value="20,0,0,0"/>
-        </Style>
-        <Style x:Key="IngredientStyle" TargetType="{x:Type TextBlock}">
-            <Setter  Property="LayoutTransform">
-                <Setter.Value>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="270"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Margin" Value="2,5,2,5"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Bottom"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-        </Style>
-        <Style x:Key="DateNameStyle" TargetType="{x:Type TextBlock}">
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Margin" Value="5,0,5,5"/>
-            <Setter Property="VerticalAlignment" Value="Bottom"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-        </Style>
-        <Style x:Key="BaseContentStyle" TargetType="{x:Type TextBlock}">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="HorizontalAlignment" Value="Center"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-       <Style x:Key="RowHeaderStyle" TargetType="{x:Type TextBlock}">
-           <Setter Property="FontSize" Value="14"/>
-           <Setter Property="VerticalAlignment" Value="Center"/>
-           <Setter Property="Margin" Value="5"/>
-       </Style>
-        <Style TargetType="DatePicker">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Margin" Value="5,0,0,0"/>
-        </Style>
-        <Style TargetType="Button">
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Margin" Value="30,0,0,0"/>
-            <Setter Property="Width" Value="120"></Setter>
-        </Style>
-    </Window.Resources>
+        Title="Отчет" Height="450" Width="800" Icon="/CafeMashine;component/Icons/report.png" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -71,9 +19,12 @@
             <Button Click="CreateReport_Click" Content="Подготовить"></Button>
         </StackPanel>
 
-        <Grid Row="1" Margin="10" >
-            <Grid  Name="ReportGrid" ShowGridLines="True" >
-                <Grid.ColumnDefinitions>
+        <Grid Row="1" Margin="10" VerticalAlignment="Top" >
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Grid Name="ReportGrid" ShowGridLines="True" />
+            </ScrollViewer>
+            <!--<Grid  Name="ReportGrid" ShowGridLines="True" >
+                --><!--<Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
@@ -87,14 +38,14 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="Дата" Style="{StaticResource DateNameStyle}"/>
                 <TextBlock Text="Выдано/получено" Grid.Column="1" Grid.Row="0" Style="{StaticResource DateNameStyle}"/>
-                <TextBlock Text="Стаканы пластиковые" Grid.Row="0" Grid.Column="2" Style="{StaticResource IngredientStyle}"/>
-                <TextBlock Text="Что-то" Grid.Row="0" Grid.Column="3" Style="{StaticResource IngredientStyle}"/>
+                <TextBlock Text="Стаканы пластиковые" Grid.Row="0" Grid.Column="2" Style="{StaticResource IngredientHeaderStyle}"/>
+                <TextBlock Text="Что-то" Grid.Row="0" Grid.Column="3" Style="{StaticResource IngredientHeaderStyle}"/>
                 <TextBlock Text="5.02.2020" Grid.Column="0" Grid.Row="1" Style="{StaticResource RowHeaderStyle}"/>
                 <TextBlock Text="Получено (Вася)" Grid.Column="1" Grid.Row="1" Style="{StaticResource RowHeaderStyle}"/>
                 <TextBlock Text="0" Grid.Column="2" Grid.Row="1" Style="{StaticResource BaseContentStyle}"/>
-                <TextBlock Text="0" Grid.Column="3" Grid.Row="1" Style="{StaticResource BaseContentStyle}"/>
-            </Grid>
-            <Rectangle Stroke="Black"/>
+                <TextBlock Text="0" Grid.Column="3" Grid.Row="1" Style="{StaticResource BaseContentStyle}"/>--><!--
+            </Grid>-->
+            <Rectangle Stroke="Black" StrokeThickness="2"/>
         </Grid>
 
     </Grid>

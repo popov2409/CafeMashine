@@ -7,14 +7,12 @@
         mc:Ignorable="d"
         Title="Склад" Height="600" Width="800" WindowStartupLocation="CenterScreen" Icon="/CafeMashine;component/Icons/storage.png">
     <Window.Resources>
-        <Style TargetType="GroupBox">
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="BorderBrush" Value="DimGray"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Margin" Value="1"/>
-            <Setter Property="HorizontalAlignment" Value="Stretch"/>
-            <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Style TargetType="Border">
+            <Setter Property="Background" Value="WhiteSmoke" />
+            <Setter Property="BorderBrush" Value="Gainsboro" />
+            <Setter Property="BorderThickness" Value="1" />
         </Style>
+       
         <Style x:Key="ListViewStyle" TargetType="{x:Type ListView}">
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="Background" Value="WhiteSmoke" />
@@ -45,8 +43,9 @@
             <MenuItem Header="Списки ингредиентов" Click="OpenIngredientWindow_CLick"/>
             <MenuItem Header="Списки операторов" Click="OpenUserWindow_CLick"/>
             <MenuItem Header="Отчет по складу" Click="ReportStorage_Click"/>
+            <MenuItem Header="Отчет по пользователю" Click="ReportUser_Click"/>
         </Menu>
-        <GroupBox Grid.Row="1" Header="Остатки по складу" >
+        <GroupBox Grid.Row="1" Grid.Column="0" Header="Остатки по складу" Style="{StaticResource GroupBoxBaseStyle}">
             <GroupBox.Content>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -73,21 +72,22 @@
                 </Grid>
                 </GroupBox.Content>
         </GroupBox>
-        <GroupBox Grid.Row="1" Grid.Column="1" Header="Остатки по операторам">
+        <GroupBox Grid.Row="1" Grid.Column="1" Header="Остатки по операторам" Style="{StaticResource GroupBoxBaseStyle}">
             <GroupBox.Content>
                 <Grid Margin="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.7*"/>
+                        <ColumnDefinition Width="150"/>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <ListView Grid.Column="0" ItemsSource="{Binding Users}" Margin="1" SelectedItem="{Binding SelectedUser}" Style="{StaticResource ListViewStyle}">
+                    <ListView Grid.Column="0" ItemsSource="{Binding Users}" Margin="1" SelectedItem="{Binding SelectedUser}" Style="{StaticResource ListViewStyle}" SelectionChanged="SelectUserClick">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding Name}"/>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <ListView Grid.Column="1" ItemsSource="{Binding UserIngredientCounts}" Margin="1" Style="{StaticResource ListViewStyle}">
+                    <ListView Grid.Column="1" ItemsSource="{Binding UserIngredientCounts}" Margin="1" Style="{StaticResource ListViewStyle}" MinWidth="150">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -101,6 +101,16 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
+                    <Border Grid.Column="2" Margin="1">
+                        <TreeView x:Name="treeView1">
+                            <TreeView.ItemTemplate>
+                                <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}">
+                                    <TextBlock Text="{Binding Value}" />
+                                </HierarchicalDataTemplate>
+                            </TreeView.ItemTemplate>
+                        </TreeView>
+                    </Border>
+                    
                 </Grid>
             </GroupBox.Content>
         </GroupBox>
