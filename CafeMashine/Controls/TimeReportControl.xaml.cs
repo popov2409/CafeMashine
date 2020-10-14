@@ -1,17 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CafeMashine.Controls
 {
@@ -38,10 +28,52 @@ namespace CafeMashine.Controls
         public TimeReportControl()
         {
             InitializeComponent();
-            MounthComboBox.ItemsSource = mounth;
-            MounthComboBox.SelectedIndex = DateTime.Now.Month-1;
+            //MounthComboBox.ItemsSource = mounth;
+            //MounthComboBox.SelectedIndex = DateTime.Now.Month-1;
         }
 
+        
+        public DateTime StartDateValue
+        {
+            get { return (DateTime)this.GetValue(StartDateValueProperty); }
+            set { this.SetValue(StartDateValueProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty StartDateValueProperty =
+            DependencyProperty.Register("StartDateValue",
+                typeof(DateTime),
+                typeof(TimeReportControl),
+                new PropertyMetadata(DateTime.Now, StartPropertyChanged));
+
+        private static void StartPropertyChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
+        {
+            TimeReportControl mainWindow = source as TimeReportControl;
+            DateTime? newValue = e.NewValue as DateTime?;
+            // Do additional logic
+        }
+
+        public DateTime EndDateValue
+        {
+            get { return (DateTime)this.GetValue(EndDateValueProperty); }
+            set { this.SetValue(EndDateValueProperty, value); }
+        }
+
+
+        public static readonly DependencyProperty EndDateValueProperty =
+            DependencyProperty.Register("EndDateValue",
+                typeof(DateTime),
+                typeof(TimeReportControl),
+                new PropertyMetadata(DateTime.Now, EndPropertyChanged));
+
+
+        private static void EndPropertyChanged(DependencyObject source, DependencyPropertyChangedEventArgs e)
+        {
+            TimeReportControl mainWindow = source as TimeReportControl;
+            DateTime? newValue = e.NewValue as DateTime?;
+            // Do additional logic
+        }
+        
         private void SelectedTypePeriod_Click(object sender, SelectionChangedEventArgs e)
         {
             switch (PeriodComboBox.SelectedIndex)
@@ -69,6 +101,18 @@ namespace CafeMashine.Controls
                     break;
                 }
             }
+        }
+
+        private void StartDate_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            if(StartDatePicker.SelectedDate==null) return;
+            StartDateValue = DateTime.Parse(StartDatePicker.SelectedDate.ToString());
+        }
+
+        private void EndDate_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            if (EndDatePicker.SelectedDate == null) return;
+            EndDateValue = DateTime.Parse(EndDatePicker.SelectedDate.ToString());
         }
     }
 }

@@ -37,9 +37,9 @@
                     </ComboBox>
                     <StackPanel Margin="30,0,0,0" Grid.Column="1" Name="PeriodDates" Orientation="Horizontal">
                         <TextBlock Text="C:" Style="{StaticResource TBStyle}"/>
-                        <DatePicker Name="StartDate" Style="{StaticResource DTStyle}" />
+                        <DatePicker Name="StartDatePicker" Style="{StaticResource DTStyle}" SelectedDateChanged="StartDate_Changed"/>
                         <TextBlock Text="По:" Style="{StaticResource TBStyle}" Margin="20,0,0,0"/>
-                        <DatePicker Name="EndDate" Style="{StaticResource DTStyle}"/>
+                        <DatePicker Name="EndDatePicker" Style="{StaticResource DTStyle}" SelectedDateChanged="EndDate_Changed" />
                     </StackPanel>
                     <ComboBox Grid.Column="2" Name="MounthComboBox" Visibility="Collapsed" Margin="10,0,0,0" Style="{StaticResource ComboBoxBaseStyle}"/>
                 </Grid>

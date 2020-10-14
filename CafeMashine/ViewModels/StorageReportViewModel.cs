@@ -14,16 +14,24 @@ namespace CafeMashine.ViewModels
     public class StorageReportViewModel:BaseViewModel
     {
         private List<User> _users;
+        private List<IngredientCount> _ingredientCounts;
+        private List<Ingredient> _ingredients;
         private User _selectedUser;
+        private DateTime _startDate;
+        private DateTime _endDate;
+
 
         public StorageReportViewModel()
         {
-            LoadUsers();
+            LoadList();
         }
 
-        async void LoadUsers()
+        async void LoadList()
         {
             _users = (await UserDataStore.GetItemsAsync(true)).Where(c => !c.Name.Equals("Storage")).ToList();
+            _ingredientCounts = (await IngredientCountDataStore.GetItemsAsync(true))
+                .OrderBy(c => DateTime.Parse(c.Date)).ToList();
+            _ingredients = (await IngredientDataStore.GetItemsAsync(true)).ToList();
         }
 
         public List<User> Users => _users;
@@ -31,7 +39,75 @@ namespace CafeMashine.ViewModels
         public User SelectedUser
         {
             get => _selectedUser;
-            set => _selectedUser = value;
+            set
+            {
+                _selectedUser = value; 
+                OnPropertyChanged("Report");
+            }
         }
+
+        public DateTime StartDate
+        {
+            get => _startDate;
+            set
+            {
+                _startDate = value; 
+                OnPropertyChanged("Report");
+            }
+        }
+
+        public DateTime EndDate
+        {
+            get => _endDate;
+            set
+            {
+                _endDate = value;
+                OnPropertyChanged("Report");
+            }
+        }
+
+
+        public Object[] Report
+        {
+            get
+            {
+                Object[] result = new object[2];
+                if(_selectedUser==null||_startDate==null||_endDate==null) {return result;}
+                else
+                {
+                    var recs = _ingredientCounts.Where(c =>
+                        c.User == _selectedUser.Id && DateTime.Parse(c.Date) >= _startDate &&
+                        DateTime.Parse(c.Date) <= _startDate).ToList();
+                    if(recs.Count==0) {return result;}
+                    else
+                    {
+                        List<string> dates = recs.Select(c => c.Date).ToList();
+                        result[0] = dates;
+                        List<StorageReportStruct> structs=new List<StorageReportStruct>();
+                        foreach (Ingredient ingredient in _ingredients)
+                        {
+                            StorageReportStruct st = new StorageReportStruct()
+                                {Ingredient = ingredient.Value, Values = new List<int>()};
+                            foreach (string date in dates)
+                            {
+                                st.Values.Add(recs.Where(c => c.Date == date && c.Ingredient == ingredient.Id)
+                                    .Sum(c => c.Count));
+                            }
+                            structs.Add(st);
+                        }
+
+                        result[1] = structs;
+                        return result;
+                    }
+                }
+            }
+        }
+    }
+
+    public struct StorageReportStruct
+    {
+        public string Ingredient { get; set; }
+        public List<int> Values { get; set; }
+
     }
 }
