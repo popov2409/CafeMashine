@@ -28,8 +28,8 @@ namespace CafeMashine.Controls
         public TimeReportControl()
         {
             InitializeComponent();
-            //MounthComboBox.ItemsSource = mounth;
-            //MounthComboBox.SelectedIndex = DateTime.Now.Month-1;
+            MounthComboBox.ItemsSource = mounth;
+            MounthComboBox.SelectedIndex = DateTime.Now.Month - 1;
         }
 
         

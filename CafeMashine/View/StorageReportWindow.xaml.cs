@@ -26,5 +26,14 @@ namespace CafeMashine.View
             InitializeComponent();
             DataContext = viewModel = new StorageReportViewModel();
         }
+
+        private void Print_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog pd = new PrintDialog();
+            if (pd.ShowDialog() == true)
+            {
+                pd.PrintVisual(ReportGrid, "My First Print Job");
+            }
+        }
     }
 }
