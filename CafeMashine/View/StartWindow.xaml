@@ -39,11 +39,34 @@
         </Grid.ColumnDefinitions>
         <Menu Grid.Row="0" Grid.ColumnSpan="2" FontSize="14">
             <MenuItem Header="Загрузить отчеты" Click="LoadRaports_Click"/>
-            <MenuItem Header="Списки автоматов" Click="OpenAvtomatWindow_CLick"/>
-            <MenuItem Header="Списки ингредиентов" Click="OpenIngredientWindow_CLick"/>
-            <MenuItem Header="Списки операторов" Click="OpenUserWindow_CLick"/>
-            <MenuItem Header="Отчет по складу" Click="ReportStorage_Click"/>
-            <MenuItem Header="Отчет по пользователю" Click="ReportUser_Click"/>
+            <MenuItem Header="Правка">
+                <MenuItem.Icon>
+                    <Image Source="/CafeMashine;component/Icons/editmenu.png"/>
+                </MenuItem.Icon>
+                <MenuItem Header="Списки автоматов" Click="OpenAvtomatWindow_CLick">
+                    <MenuItem.Icon>
+                        <Image Source="/CafeMashine;component/Icons/avtomat.png"/>
+                    </MenuItem.Icon>
+
+                </MenuItem>
+                <MenuItem Header="Списки ингредиентов" Click="OpenIngredientWindow_CLick">
+                    <MenuItem.Icon>
+                        <Image Source="/CafeMashine;component/Icons/ingredient.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Списки операторов" Click="OpenUserWindow_CLick">
+                    <MenuItem.Icon>
+                        <Image Source="/CafeMashine;component/Icons/user.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Отчеты">
+                <MenuItem.Icon>
+                    <Image Source="/CafeMashine;component/Icons/reportmenu.png"/>
+                </MenuItem.Icon>
+                <MenuItem Header="Отчет по складу" Click="ReportStorage_Click"/>
+                <MenuItem Header="Отчет по пользователю" Click="ReportUser_Click"/>
+            </MenuItem>
         </Menu>
         <GroupBox Grid.Row="1" Grid.Column="0" Header="Остатки по складу" Style="{StaticResource GroupBoxBaseStyle}">
             <GroupBox.Content>

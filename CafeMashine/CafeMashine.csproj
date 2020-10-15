@@ -206,13 +206,7 @@
     <Resource Include="Icons\addPerson.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icons\users.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Icons\storage.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icons\avtomats.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\ingredients.png" />
@@ -228,6 +222,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\print.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\reportmenu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\editmenu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\avtomat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\ingredient.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\user.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

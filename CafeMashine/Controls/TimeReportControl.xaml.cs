@@ -92,12 +92,18 @@ namespace CafeMashine.Controls
                 {
                     PeriodDates.Visibility = Visibility.Collapsed;
                     MounthComboBox.Visibility = Visibility.Visible;
-                    break;
+                    StartDateValue = DateTime.Parse($"1.{MounthComboBox.SelectedIndex + 1}.{DateTime.Now.Year}");
+                    EndDateValue = DateTime.Parse($"1.{MounthComboBox.SelectedIndex + 2}.{DateTime.Now.Year}")
+                        .AddDays(-1);
+
+                        break;
                 }
                 case 2:
                 {
                     PeriodDates.Visibility = Visibility.Collapsed;
                     MounthComboBox.Visibility = Visibility.Collapsed;
+                    StartDateValue = DateTime.MinValue;
+                    EndDateValue = DateTime.MaxValue;
                     break;
                 }
             }
@@ -113,6 +119,23 @@ namespace CafeMashine.Controls
         {
             if (EndDatePicker.SelectedDate == null) return;
             EndDateValue = DateTime.Parse(EndDatePicker.SelectedDate.ToString());
+        }
+
+        private void Mounth_Selected(object sender, SelectionChangedEventArgs e)
+        {
+            StartDateValue= DateTime.Parse($"1.{MounthComboBox.SelectedIndex + 1}.{DateTime.Now.Year}");
+            if (MounthComboBox.SelectedIndex < 11)
+            {
+                EndDateValue = DateTime
+                    .Parse($"1.{MounthComboBox.SelectedIndex + 2}.{DateTime.Now.Year}")
+                    .AddDays(-1);
+            }
+            else
+            {
+                EndDateValue =  DateTime
+                    .Parse($"31.12.{DateTime.Now.Year}");
+            }
+
         }
     }
 }

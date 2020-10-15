@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CafeMashine.View"
         mc:Ignorable="d"
-        Title="Операторы" Height="450" Width="600" WindowStartupLocation="CenterScreen" Closing="Window_Closing" Icon="/CafeMashine;component/Icons/users.png">
+        Title="Операторы" Height="450" Width="600" WindowStartupLocation="CenterScreen" Closing="Window_Closing" Icon="/CafeMashine;component/Icons/user.png">
         <Window.Resources>
             <Style TargetType="ListView">
                 <Setter Property="FontSize" Value="16"/>

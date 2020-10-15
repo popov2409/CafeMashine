@@ -111,7 +111,7 @@ namespace CafeMashine.View
 
         private void ReportStorage_Click(object sender, RoutedEventArgs e)
         {
-            new ReportWindow(viewModel.StorageUser).ShowDialog();
+            new StorageReportWindow().ShowDialog();
         }
 
         private void ReportUser_Click(object sender, RoutedEventArgs e)

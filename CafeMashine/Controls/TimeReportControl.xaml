@@ -41,7 +41,7 @@
                         <TextBlock Text="По:" Style="{StaticResource TBStyle}" Margin="20,0,0,0"/>
                         <DatePicker Name="EndDatePicker" Style="{StaticResource DTStyle}" SelectedDateChanged="EndDate_Changed" />
                     </StackPanel>
-                    <ComboBox Grid.Column="2" Name="MounthComboBox" Visibility="Collapsed" Margin="10,0,0,0" Style="{StaticResource ComboBoxBaseStyle}"/>
+                    <ComboBox Grid.Column="2" Name="MounthComboBox" Visibility="Collapsed" Margin="10,0,0,0" Style="{StaticResource ComboBoxBaseStyle}" SelectionChanged="Mounth_Selected"/>
                 </Grid>
             </GroupBox.Content>
 

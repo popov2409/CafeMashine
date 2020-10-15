@@ -47,6 +47,7 @@ namespace CafeMashine.ViewModels
             set
             {
                 _selectedUser = value; 
+                OnPropertyChanged("UserName");
                 OnPropertyChanged("ReportGrid");
             }
         }
@@ -74,8 +75,12 @@ namespace CafeMashine.ViewModels
         private List<string> dates;
         private List<StorageReportStruct> structs;
 
+        public string UserName => _selectedUser==null?"":_selectedUser.Name;
+
         private void CreateReport()
         {
+            dates = new List<string>();
+
             if (_selectedUser == null || _startDate == null || _endDate == null)
             {
                 return;
