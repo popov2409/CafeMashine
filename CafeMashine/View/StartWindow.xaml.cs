@@ -139,5 +139,10 @@ namespace CafeMashine.View
         {
             new StorageReportWindow(3) { Title = (sender as MenuItem).Header.ToString() }.ShowDialog();
         }
+
+        private void CreateDataFile_Click(object sender, RoutedEventArgs e)
+        {
+            new CreateDataListWindow().ShowDialog();
+        }
     }
 }

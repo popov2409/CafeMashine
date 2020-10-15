@@ -102,6 +102,9 @@
     <Compile Include="View\AvtomatWindow.xaml.cs">
       <DependentUpon>AvtomatWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\CreateDataListWindow.xaml.cs">
+      <DependentUpon>CreateDataListWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\IngredientWindow.xaml.cs">
       <DependentUpon>IngredientWindow.xaml</DependentUpon>
     </Compile>
@@ -150,6 +153,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\AvtomatWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CreateDataListWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -243,6 +250,16 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icons\edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\setting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\export.png" />
+    <Resource Include="Icons\import.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icons\reportuser.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

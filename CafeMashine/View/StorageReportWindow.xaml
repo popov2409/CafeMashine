@@ -38,10 +38,10 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBlock Name="ReportHeader" Grid.Row="0" Text="{Binding UserName}" HorizontalAlignment="Center" FontWeight="Bold" />
+                <TextBlock Name="ReportHeader" Grid.Row="0" Text="{Binding UserName}" HorizontalAlignment="Center" FontWeight="Bold"/>
 
                 <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="1" Margin="0,10,0,0">
-                <Grid  Margin="10" >
+                <Grid  Margin="10"  Name="TabledGrid">
                     <ContentPresenter
                         Content="{Binding ReportGrid}">
                     </ContentPresenter>

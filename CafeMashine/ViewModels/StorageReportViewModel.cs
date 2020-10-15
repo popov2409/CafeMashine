@@ -117,6 +117,7 @@ namespace CafeMashine.ViewModels
             }
             else
             {
+                List<Avtomat> avtomats=new List<Avtomat>();
                 object recs = new object();
                 switch (_typeReport)
                 {
@@ -129,6 +130,17 @@ namespace CafeMashine.ViewModels
                         dates = (recs as List<IngredientCount>).Select(c => c.Date).Distinct().ToList();
                         break;
                     }
+                    case 1:
+                    {
+                        recs = _records.Where(c =>
+                            c.User == _selectedUser.Id && DateTime.Parse(c.Date) >= _startDate &&
+                            DateTime.Parse(c.Date) <= _endDate).ToList();
+                        if ((recs as List<Record>).Count == 0) return;
+                        dates = (recs as List<Record>).Select(c => c.Avtomat).Distinct().ToList();
+                        avtomats = dates.Select(date => _avtomats.First(c => c.Id == date)).ToList();
+                        dates = avtomats.OrderBy(c => c.Value).Select(c => c.Id).ToList();
+                            break;
+                    }
                     case 2:
                     {
                         recs = _records.Where(c =>
@@ -140,13 +152,14 @@ namespace CafeMashine.ViewModels
                     }
                     case 3:
                     {
-                        if(_selectedAvtomat==null) return;
+                        if (_selectedAvtomat == null) return;
                         recs = _records.Where(c =>
                             c.Avtomat == _selectedAvtomat.Id && c.User == _selectedUser.Id &&
                             DateTime.Parse(c.Date) >= _startDate &&
                             DateTime.Parse(c.Date) <= _endDate).ToList();
                         if ((recs as List<Record>).Count == 0) return;
                         dates = (recs as List<Record>).Select(c => c.Date).Distinct().ToList();
+                        
                         break;
                     }
                 }
@@ -167,6 +180,13 @@ namespace CafeMashine.ViewModels
                                     .Sum(c => c.Count));
                                 break;
                             }
+                            case 1:
+                            {
+                                st.Values.Add((recs as List<Record>)
+                                    .Where(c => c.Avtomat == date && c.Ingredient == ingredient.Id)
+                                    .Sum(c => c.Count));
+                                break;
+                            }
                             case 2:
                             {
                                 st.Values.Add((recs as List<Record>)
@@ -181,10 +201,17 @@ namespace CafeMashine.ViewModels
                         }
 
                     }
+
                     structs.Add(st);
                 }
-            }
 
+                if (_typeReport == 1)
+                {
+                    dates = avtomats.OrderBy(c => c.Value).Select(c => c.Value).ToList();
+                }
+
+
+            }
         }
 
         public Grid ReportGrid
@@ -229,7 +256,7 @@ namespace CafeMashine.ViewModels
                 {
                     _resGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
                     TextBox tbD = new TextBox()
-                        { Text = date.Substring(0,5), Style = (Style)App.Current.Resources["TableHeadersTextBoxStyle"] };
+                        { Text = _typeReport!=1?date.Substring(0,5):date, Style = (Style)App.Current.Resources["TableHeadersTextBoxStyle"] };
                     Grid.SetRow(tbD, 1);
                     Grid.SetColumn(tbD, column);
                     _resGrid.Children.Add(tbD);
@@ -244,6 +271,11 @@ namespace CafeMashine.ViewModels
                     case 0:
                     {
                         tb0_3.Text = "Выдано";
+                        break;
+                    }
+                    case 1:
+                    {
+                        tb0_3.Text = "Автомат";
                         break;
                     }
                     case 2:

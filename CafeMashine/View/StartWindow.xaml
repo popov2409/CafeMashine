@@ -43,7 +43,32 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Menu Grid.Row="0" Grid.ColumnSpan="2" FontSize="14">
-            <MenuItem Header="Загрузить отчеты" Click="LoadRaports_Click"/>
+            <MenuItem Header="Отчеты">
+                <MenuItem.Icon>
+                    <Image Source="/CafeMashine;component/Icons/reportmenu.png"/>
+                </MenuItem.Icon>
+                <MenuItem Header="Автомат" Click="ReportAvtomat_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/CafeMashine;component/Icons/avtomat.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Оператор (по автоматам)" Click="ReportUserAvtomat_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/CafeMashine;component/Icons/reportuser.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Оператор (по датам)" Click="ReportUser_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/CafeMashine;component/Icons/reportuser.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Склад" Click="ReportStorage_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/CafeMashine;component/Icons/storage.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </MenuItem>
+            
             <MenuItem Header="Правка">
                 <MenuItem.Icon>
                     <Image Source="/CafeMashine;component/Icons/editmenu.png"/>
@@ -65,16 +90,23 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="Отчеты">
+            <MenuItem Header="Операторы">
                 <MenuItem.Icon>
-                    <Image Source="/CafeMashine;component/Icons/reportmenu.png"/>
+                    <Image Source="/CafeMashine;component/Icons/setting.png"/>
                 </MenuItem.Icon>
-                <MenuItem Header="Автомат" Click="ReportAvtomat_Click"/>
-                <MenuItem Header="Оператор (по автоматам)" Click="ReportUserAvtomat_Click"/>
-                <MenuItem Header="Оператор (по датам)" Click="ReportUser_Click"/>
-                <MenuItem Header="Склад" Click="ReportStorage_Click"/>
+                <MenuItem Header="Загрузить данные от операторов" Click="LoadRaports_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/CafeMashine;component/Icons/import.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="Создать файл данных для оператора" Click="CreateDataFile_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/CafeMashine;component/Icons/export.png"/>
+                    </MenuItem.Icon>
+                </MenuItem>
             </MenuItem>
-        </Menu>
+
+</Menu>
         <GroupBox Grid.Row="1" Grid.Column="0" Header="Остатки по складу" Style="{StaticResource GroupBoxBaseStyle}">
             <GroupBox.Content>
                 <Grid>
