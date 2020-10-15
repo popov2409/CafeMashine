@@ -29,7 +29,7 @@ namespace CafeMashine.Controls
         {
             InitializeComponent();
             MounthComboBox.ItemsSource = mounth;
-            MounthComboBox.SelectedIndex = DateTime.Now.Month - 1;
+            PeriodComboBox.SelectedIndex = 1;
         }
 
         
@@ -92,10 +92,10 @@ namespace CafeMashine.Controls
                 {
                     PeriodDates.Visibility = Visibility.Collapsed;
                     MounthComboBox.Visibility = Visibility.Visible;
-                    StartDateValue = DateTime.Parse($"1.{MounthComboBox.SelectedIndex + 1}.{DateTime.Now.Year}");
+                    if (MounthComboBox.SelectedIndex < 0) return;
+                        StartDateValue = DateTime.Parse($"1.{MounthComboBox.SelectedIndex + 1}.{DateTime.Now.Year}");
                     EndDateValue = DateTime.Parse($"1.{MounthComboBox.SelectedIndex + 2}.{DateTime.Now.Year}")
                         .AddDays(-1);
-
                         break;
                 }
                 case 2:

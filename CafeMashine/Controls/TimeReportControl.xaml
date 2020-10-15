@@ -28,7 +28,7 @@
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <ComboBox Name="PeriodComboBox" SelectedIndex="0" SelectionChanged="SelectedTypePeriod_Click" Style="{StaticResource ComboBoxBaseStyle}">
+                    <ComboBox Name="PeriodComboBox" SelectionChanged="SelectedTypePeriod_Click" Style="{StaticResource ComboBoxBaseStyle}">
                         <ComboBox.Items>
                             <TextBlock Text="За период"/>
                             <TextBlock Text="За месяц"/>

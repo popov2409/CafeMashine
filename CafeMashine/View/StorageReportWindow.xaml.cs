@@ -21,10 +21,14 @@ namespace CafeMashine.View
     public partial class StorageReportWindow : Window
     {
         private StorageReportViewModel viewModel;
-        public StorageReportWindow()
+
+        public StorageReportWindow(int typeReport)
         {
             InitializeComponent();
-            DataContext = viewModel = new StorageReportViewModel();
+            DataContext = viewModel = new StorageReportViewModel(typeReport);
+            if (typeReport != 3) return;
+            UserGroup.Header = "Оператор/Автомат";
+            AvtomatCB.Visibility = Visibility.Visible;
         }
 
         private void Print_Click(object sender, RoutedEventArgs e)

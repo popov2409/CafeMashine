@@ -53,15 +53,15 @@ namespace CafeMashine.ViewModels
                     var recs = needRec.Where(c => c.Date == date && c.Ingredient == ingredient.Id).ToList();
                     if (recs.Count == 0)
                     {
-                        ingredientReport.Value += " - 0";
+                        ingredientReport.Value += " : 0";
                     }
                     else
                     {
-                        ingredientReport.Value += $" - {recs.Sum(c => c.Count)}";
+                        ingredientReport.Value += $" : {recs.Sum(c => c.Count)}";
                         foreach (Record rec in recs)
                         {
                             UserReport avtomatReport = new UserReport()
-                                {Value = $"{_avtomats.First(c => c.Id == rec.Avtomat).Value} - {rec.Count}"};
+                                {Value = $"{_avtomats.First(c => c.Id == rec.Avtomat).Value} : {rec.Count}"};
                             ingredientReport.Children.Add(avtomatReport);
                         }
 

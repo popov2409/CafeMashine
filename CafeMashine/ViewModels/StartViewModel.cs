@@ -33,7 +33,6 @@ namespace CafeMashine.ViewModels
         private async void LoadData()
         {
             _ingredientCounts = (await IngredientCountDataStore.GetItemsAsync(true)).ToList();
-            //_avtomats = (await AvtomatDataStore.GetItemsAsync(true)).ToList();
             _ingredients = (await IngredientDataStore.GetItemsAsync(true)).ToList();
             _records = (await RecordDataStore.GetItemsAsync(true)).ToList();
             _users = (await UserDataStore.GetItemsAsync(true)).ToList();

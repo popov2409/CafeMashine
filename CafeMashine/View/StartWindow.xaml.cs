@@ -111,25 +111,33 @@ namespace CafeMashine.View
 
         private void ReportStorage_Click(object sender, RoutedEventArgs e)
         {
-            new StorageReportWindow().ShowDialog();
+            new StorageReportWindow(0){ Title = (sender as MenuItem).Header.ToString() }.ShowDialog();
         }
 
         private void ReportUser_Click(object sender, RoutedEventArgs e)
         {
-            if(viewModel.SelectedUser==null) return;
-            ReportViewModel report =new ReportViewModel();
-            List<UserReport> res = report.GetUserReport(viewModel.SelectedUser,
-                DateTime.Parse("1.01." + DateTime.Now.Year), DateTime.Parse("31.12." + DateTime.Now.Year));
-            treeView1.ItemsSource = res;
-            //new ReportWindow(viewModel.SelectedUser).ShowDialog();
+            new StorageReportWindow(2){Title = (sender as MenuItem).Header.ToString() }.ShowDialog();
         }
 
         private void SelectUserClick(object sender, SelectionChangedEventArgs e)
         {
             ReportViewModel report = new ReportViewModel();
             List<UserReport> res = report.GetUserReport(viewModel.SelectedUser,
-                DateTime.Parse("1.01." + DateTime.Now.Year), DateTime.Parse("31.12." + DateTime.Now.Year));
+                DateTime.Parse($"1.{DateTime.Now.Month}.{DateTime.Now.Year}"),
+                DateTime.Parse(
+                        $"{(DateTime.Now.Month == 12 ? "31." : "1.")}.{(DateTime.Now.Month == 12 ? "12" : (DateTime.Now.Month + 1).ToString())}.{DateTime.Now.Year}")
+                    .AddDays((DateTime.Now.Month == 12 ? 0 : -1)));
             treeView1.ItemsSource = res;
+        }
+
+        private void ReportUserAvtomat_Click(object sender, RoutedEventArgs e)
+        {
+            new StorageReportWindow(1){Title = (sender as MenuItem).Header.ToString()}.ShowDialog();
+        }
+
+        private void ReportAvtomat_Click(object sender, RoutedEventArgs e)
+        {
+            new StorageReportWindow(3) { Title = (sender as MenuItem).Header.ToString() }.ShowDialog();
         }
     }
 }

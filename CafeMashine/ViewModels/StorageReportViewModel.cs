@@ -19,16 +19,23 @@ namespace CafeMashine.ViewModels
         private List<User> _users;
         private List<IngredientCount> _ingredientCounts;
         private List<Ingredient> _ingredients;
+        private List<Record> _records;
+        private List<Avtomat> _avtomats;
+        private List<UserAvtomat> _userAvtomats;
+
+        private Avtomat _selectedAvtomat;
         private User _selectedUser;
         private DateTime _startDate;
         private DateTime _endDate;
         private Grid _resGrid;
+        private int _typeReport;
 
 
-        public StorageReportViewModel()
+        public StorageReportViewModel(int typeReport)
         {
             LoadList();
             _resGrid = new Grid();
+            _typeReport = typeReport;
         }
 
         async void LoadList()
@@ -37,17 +44,40 @@ namespace CafeMashine.ViewModels
             _ingredientCounts = (await IngredientCountDataStore.GetItemsAsync(true))
                 .OrderBy(c => DateTime.Parse(c.Date)).ToList();
             _ingredients = (await IngredientDataStore.GetItemsAsync(true)).ToList();
+            _records = (await RecordDataStore.GetItemsAsync(true)).ToList();
+            _avtomats = (await AvtomatDataStore.GetItemsAsync(true)).ToList();
+            _userAvtomats = (await UserAvtomatDataStore.GetItemsAsync(true)).ToList();
         }
 
         public List<User> Users => _users;
+
+        private List<Avtomat> _userAvtomates;
+        public List<Avtomat> Avtomats => _userAvtomates;
 
         public User SelectedUser
         {
             get => _selectedUser;
             set
             {
-                _selectedUser = value; 
+                _selectedUser = value;
+                _userAvtomates=new List<Avtomat>();
+                foreach (UserAvtomat userAvtomat in _userAvtomats.Where(c=>c.User==_selectedUser.Id))
+                {
+                    _userAvtomates.Add(_avtomats.First(c => c.Id == userAvtomat.Avtomat));
+                }
+                
                 OnPropertyChanged("UserName");
+                OnPropertyChanged("ReportGrid");
+                OnPropertyChanged("Avtomats");
+            }
+        }
+
+        public Avtomat SelectedAvtomat
+        {
+            get => _selectedAvtomat;
+            set
+            {
+                _selectedAvtomat = value;
                 OnPropertyChanged("ReportGrid");
             }
         }
@@ -75,7 +105,7 @@ namespace CafeMashine.ViewModels
         private List<string> dates;
         private List<StorageReportStruct> structs;
 
-        public string UserName => _selectedUser==null?"":_selectedUser.Name;
+        public string UserName => _selectedUser == null ? "" : _selectedUser.Name;
 
         private void CreateReport()
         {
@@ -87,29 +117,71 @@ namespace CafeMashine.ViewModels
             }
             else
             {
-                var recs = _ingredientCounts.Where(c =>
-                    c.User == _selectedUser.Id && DateTime.Parse(c.Date) >= _startDate &&
-                    DateTime.Parse(c.Date) <= _endDate).ToList();
-                if (recs.Count == 0)
+                object recs = new object();
+                switch (_typeReport)
                 {
-                    return;
-                }
-                else
-                {
-                    dates = recs.Select(c => c.Date).Distinct().ToList();
-                    structs = new List<StorageReportStruct>();
-                    foreach (Ingredient ingredient in _ingredients)
+                    case 0:
                     {
-                        StorageReportStruct st = new StorageReportStruct()
-                            {Ingredient = ingredient.Value, Values = new List<int>()};
-                        foreach (string date in dates)
+                        recs = _ingredientCounts.Where(c =>
+                            c.User == _selectedUser.Id && DateTime.Parse(c.Date) >= _startDate &&
+                            DateTime.Parse(c.Date) <= _endDate).ToList();
+                        if ((recs as List<IngredientCount>).Count == 0) return;
+                        dates = (recs as List<IngredientCount>).Select(c => c.Date).Distinct().ToList();
+                        break;
+                    }
+                    case 2:
+                    {
+                        recs = _records.Where(c =>
+                            c.User == _selectedUser.Id && DateTime.Parse(c.Date) >= _startDate &&
+                            DateTime.Parse(c.Date) <= _endDate).ToList();
+                        if ((recs as List<Record>).Count == 0) return;
+                        dates = (recs as List<Record>).Select(c => c.Date).Distinct().ToList();
+                        break;
+                    }
+                    case 3:
+                    {
+                        if(_selectedAvtomat==null) return;
+                        recs = _records.Where(c =>
+                            c.Avtomat == _selectedAvtomat.Id && c.User == _selectedUser.Id &&
+                            DateTime.Parse(c.Date) >= _startDate &&
+                            DateTime.Parse(c.Date) <= _endDate).ToList();
+                        if ((recs as List<Record>).Count == 0) return;
+                        dates = (recs as List<Record>).Select(c => c.Date).Distinct().ToList();
+                        break;
+                    }
+                }
+
+                structs = new List<StorageReportStruct>();
+                foreach (Ingredient ingredient in _ingredients)
+                {
+                    StorageReportStruct st = new StorageReportStruct()
+                        {Ingredient = ingredient.Value, Values = new List<int>()};
+                    foreach (string date in dates)
+                    {
+                        switch (_typeReport)
                         {
-                            st.Values.Add(recs.Where(c => c.Date == date && c.Ingredient == ingredient.Id)
-                                .Sum(c => c.Count));
+                            case 0:
+                            {
+                                st.Values.Add((recs as List<IngredientCount>)
+                                    .Where(c => c.Date == date && c.Ingredient == ingredient.Id)
+                                    .Sum(c => c.Count));
+                                break;
+                            }
+                            case 2:
+                            {
+                                st.Values.Add((recs as List<Record>)
+                                    .Where(c => c.Date == date && c.Ingredient == ingredient.Id)
+                                    .Sum(c => c.Count));
+                                break;
+                            }
+                            case 3:
+                            {
+                                goto case 2;
+                            }
                         }
 
-                        structs.Add(st);
                     }
+                    structs.Add(st);
                 }
             }
 
@@ -166,7 +238,25 @@ namespace CafeMashine.ViewModels
 
                 //выдано
                 TextBox tb0_3 = new TextBox()
-                    { Text = "Выдано", Style = (Style)App.Current.Resources["TableHeadersTextBoxStyle"] };
+                    { Style = (Style)App.Current.Resources["TableHeadersTextBoxStyle"] };
+                switch (_typeReport)
+                {
+                    case 0:
+                    {
+                        tb0_3.Text = "Выдано";
+                        break;
+                    }
+                    case 2:
+                    {
+                        tb0_3.Text = "Число";
+                        break;
+                    }
+                    case 3:
+                    {
+                        tb0_3.Text = _selectedAvtomat.Value;
+                        break;
+                    }
+                }
                 Grid.SetRow(tb0_3, 0);
                 Grid.SetColumn(tb0_3, 3);
                 Grid.SetColumnSpan(tb0_3, dates.Count);

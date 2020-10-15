@@ -27,6 +27,11 @@
         <Style TargetType="Button">
             <Setter Property="FontSize" Value="16"/>
         </Style>
+        <Style x:Key="OperatorTextBlockStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -64,8 +69,10 @@
                 <MenuItem.Icon>
                     <Image Source="/CafeMashine;component/Icons/reportmenu.png"/>
                 </MenuItem.Icon>
-                <MenuItem Header="Отчет по складу" Click="ReportStorage_Click"/>
-                <MenuItem Header="Отчет по пользователю" Click="ReportUser_Click"/>
+                <MenuItem Header="Автомат" Click="ReportAvtomat_Click"/>
+                <MenuItem Header="Оператор (по автоматам)" Click="ReportUserAvtomat_Click"/>
+                <MenuItem Header="Оператор (по датам)" Click="ReportUser_Click"/>
+                <MenuItem Header="Склад" Click="ReportStorage_Click"/>
             </MenuItem>
         </Menu>
         <GroupBox Grid.Row="1" Grid.Column="0" Header="Остатки по складу" Style="{StaticResource GroupBoxBaseStyle}">
@@ -81,11 +88,13 @@
                             <DataTemplate>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="40"/>
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Text="{Binding Ingredient,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
-                                    <TextBlock Grid.Column="1" Text="{Binding Count,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                    <TextBlock Grid.Column="1" Text=" : " VerticalAlignment="Center" />
+                                    <TextBlock Grid.Column="2" Text="{Binding Count,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" />
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -101,38 +110,66 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="150"/>
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="0.6*"/>
                     </Grid.ColumnDefinitions>
-                    <ListView Grid.Column="0" ItemsSource="{Binding Users}" Margin="1" SelectedItem="{Binding SelectedUser}" Style="{StaticResource ListViewStyle}" SelectionChanged="SelectUserClick">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Name}"/>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <ListView Grid.Column="1" ItemsSource="{Binding UserIngredientCounts}" Margin="1" Style="{StaticResource ListViewStyle}" MinWidth="150">
+                    <Grid Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Операторы" Style="{StaticResource OperatorTextBlockStyle}"/>
+                        <ListView Grid.Row="1" ItemsSource="{Binding Users}" Margin="1" SelectedItem="{Binding SelectedUser}" Style="{StaticResource ListViewStyle}" SelectionChanged="SelectUserClick">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Name}"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                    <Grid Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Остатки" Style="{StaticResource OperatorTextBlockStyle}"/>
+                        <ListView Grid.Row="1" ItemsSource="{Binding UserIngredientCounts}" Margin="1" Style="{StaticResource ListViewStyle}" MinWidth="150" >
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition />
-                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Grid.Column="0" Text="{Binding Ingredient,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
-                                    <TextBlock Grid.Column="1" Text="{Binding Count,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                    <TextBlock Grid.Column="1" Text=" : "/>
+                                    <TextBlock Grid.Column="2" Text="{Binding Count,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="0,0,10,0"/>
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <Border Grid.Column="2" Margin="1">
-                        <TreeView x:Name="treeView1">
-                            <TreeView.ItemTemplate>
-                                <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}">
-                                    <TextBlock Text="{Binding Value}" />
-                                </HierarchicalDataTemplate>
-                            </TreeView.ItemTemplate>
-                        </TreeView>
-                    </Border>
+
+                    </Grid>
+            
+                    <Grid Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Списано(текущий месяц)" Style="{StaticResource OperatorTextBlockStyle}"/>
+                        <Border Grid.Row="1" Margin="1">
+                            <TreeView x:Name="treeView1" FontSize="14">
+                                <TreeView.ItemTemplate>
+                                    <HierarchicalDataTemplate ItemsSource="{Binding Path=Children}">
+                                        <TextBlock Text="{Binding Value}" />
+                                    </HierarchicalDataTemplate>
+                                </TreeView.ItemTemplate>
+                            </TreeView>
+                        </Border>
+
+                    </Grid>
+                                       
+                    
                     
                 </Grid>
             </GroupBox.Content>
