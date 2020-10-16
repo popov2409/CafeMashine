@@ -39,5 +39,10 @@ namespace CafeMashine.View
                 pd.PrintVisual(ReportGrid, "My First Print Job");
             }
         }
+
+        private void Excel_Click(object sender, RoutedEventArgs e)
+        {
+            viewModel.ExportExcel();
+        }
     }
 }

@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using CafeMashine.Models;
+using Microsoft.Office.Interop.Excel;
+using Style = System.Windows.Style;
+using TextBox = System.Windows.Controls.TextBox;
 
 namespace CafeMashine.ViewModels
 {
@@ -29,6 +32,16 @@ namespace CafeMashine.ViewModels
         private DateTime _endDate;
         private Grid _resGrid;
         private int _typeReport;
+        private Visibility _exportVisibility;
+
+        private string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        private string ColumnName(int number)
+        {
+            int charCount = number / chars.Length;
+            int charNum = number % chars.Length;
+            return charCount > 0 ? $"{chars[charCount - 1]}{chars[charNum - 1]}" : chars[charNum - 1].ToString();
+        }
 
 
         public StorageReportViewModel(int typeReport)
@@ -72,12 +85,16 @@ namespace CafeMashine.ViewModels
             }
         }
 
+        public Visibility ExportButtonVisibility => _exportVisibility;
+
         public Avtomat SelectedAvtomat
         {
             get => _selectedAvtomat;
             set
             {
                 _selectedAvtomat = value;
+                _exportVisibility = Visibility.Collapsed;
+                OnPropertyChanged("ExportButtonVisibility");
                 OnPropertyChanged("ReportGrid");
             }
         }
@@ -87,7 +104,9 @@ namespace CafeMashine.ViewModels
             get => _startDate;
             set
             {
-                _startDate = value; 
+                _startDate = value;
+                _exportVisibility = Visibility.Collapsed;
+                OnPropertyChanged("ExportButtonVisibility");
                 OnPropertyChanged("ReportGrid");
             }
         }
@@ -98,6 +117,8 @@ namespace CafeMashine.ViewModels
             set
             {
                 _endDate = value;
+                _exportVisibility = Visibility.Collapsed;
+                OnPropertyChanged("ExportButtonVisibility");
                 OnPropertyChanged("ReportGrid");
             }
         }
@@ -110,9 +131,10 @@ namespace CafeMashine.ViewModels
         private void CreateReport()
         {
             dates = new List<string>();
-
             if (_selectedUser == null || _startDate == null || _endDate == null)
             {
+                _exportVisibility = Visibility.Collapsed;
+                OnPropertyChanged("ExportButtonVisibility");
                 return;
             }
             else
@@ -210,6 +232,8 @@ namespace CafeMashine.ViewModels
                     dates = avtomats.OrderBy(c => c.Value).Select(c => c.Value).ToList();
                 }
 
+                _exportVisibility = Visibility.Visible;
+                OnPropertyChanged("ExportButtonVisibility");
 
             }
         }
@@ -335,6 +359,152 @@ namespace CafeMashine.ViewModels
 
                 return _resGrid;
             }
+        }
+
+        public void ExportExcel()
+        {
+            Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
+            
+
+            Workbook wb = app.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
+            Worksheet ws = wb.Worksheets[1];
+
+            string tabledName = "";
+
+            switch (_typeReport)
+            {
+                case 0:
+                {
+                    tabledName = "Выдано";
+                    break;
+                }
+                case 1:
+                {
+                    tabledName = "Автомат";
+                    break;
+                }
+                case 2:
+                {
+                    tabledName = "Число";
+                    break;
+                }
+                case 3:
+                {
+                    tabledName = _selectedAvtomat.Value;
+                    break;
+                }
+            }
+
+            
+            //string colName = ColumnName(33);
+            
+
+            int row = 3;
+
+            int statrcolumn = 1;
+
+            int column = 1; 
+            ws.Range[$"{ColumnName(column)}{row}", $"{ColumnName(column)}{row+1}"].Merge();
+            SetBaseHeaderCellStyle(ws.Range[$"{ColumnName(column)}{row}", $"{ColumnName(column)}{row+1}"],"№");
+            column++;
+            ws.Range[$"{ColumnName(column)}{row}", $"{ColumnName(column)}{row + 1}"].Merge();
+            SetBaseHeaderCellStyle(ws.Range[$"{ColumnName(column)}{row}", $"{ColumnName(column)}{row + 1}"], "Игредиенты");
+            column++;
+            ws.Range[$"{ColumnName(column)}{row}", $"{ColumnName(column)}{row + 1}"].Merge();
+            SummaryCellStyle(ws.Range[$"{ColumnName(column)}{row}", $"{ColumnName(column)}{row + 1}"], "Итого");
+            column++;
+            ws.Range[$"{ColumnName(column)}{row}", $"{ColumnName(column + dates.Count-1)}{row}"].Merge();
+            SetBaseHeaderCellStyle(ws.Range[$"{ColumnName(column)}{row}", $"{ColumnName(column + dates.Count-1)}{row}"], tabledName);
+            row++;
+            foreach (string date in dates)
+            {
+                SetBaseHeaderCellStyle(ws.Range[$"{ColumnName(column)}{row}"], _typeReport != 1 ? date.Substring(0, 5) : date);
+                column++;
+            }
+            row++;
+            
+            foreach (StorageReportStruct storageReportStruct in structs)
+            {
+                column = 1;
+                NumberContentCellStyle(ws.Range[$"{ColumnName(column)}{row}"], (row-4).ToString());
+                column++;
+                IngredientContentCellStyle(ws.Range[$"{ColumnName(column)}{row}"], storageReportStruct.Ingredient);
+                column++;
+                SummaryCellStyle(ws.Range[$"{ColumnName(column)}{row}"], storageReportStruct.Values.Sum().ToString());
+                column++;
+                foreach (int value in storageReportStruct.Values)
+                {
+                    SetBaseHeaderCellStyle(ws.Range[$"{ColumnName(column)}{row}"], value.ToString());
+                    column++;
+                }
+                row++;
+            }
+
+
+            ws.Range[$"{ColumnName(1)}{1}", $"{ColumnName(dates.Count +3)}{1}"].Merge();
+            HeaderStyle(ws.Range[$"{ColumnName(1)}{1}", $"{ColumnName(dates.Count +3)}{1}"], _selectedUser.Name);
+
+            ws.Columns.EntireColumn.AutoFit();
+
+            ////ws.Range["A1"].Font.Background = XlRgbColor.rgbAqua;
+
+            ////Выравнивание ячеек
+            //ws.Range["A1:D1"].HorizontalAlignment = Constants.xlCenter;
+
+            ////Прорисовка границ
+            //ws.Range["A1:D1"].Borders.LineStyle = XlLineStyle.xlContinuous;
+            ////Тощина линии
+            //ws.Range["A1:D1"].Borders.Weight = XlBorderWeight.xlThick;
+            ////Заливка ячейки
+            //ws.Range["A1:D1"].Interior.Color = XlRgbColor.rgbAqua;
+            ////Объединенине
+            //ws.Range["A1:D1"].Cells.Merge(Type.Missing);
+
+
+            app.Visible = true;
+            app.WindowState = XlWindowState.xlMaximized;
+            // wb.SaveAs("vitoshacademy.xlsx");
+        }
+
+        private void SetBaseHeaderCellStyle(Range range, string value)
+        {
+            range.NumberFormat = "@";
+            range.Font.Name = "Times New Roman";
+            range.Font.Size = 14;
+            range.Value = value;
+            range.HorizontalAlignment = Constants.xlCenter;
+            range.VerticalAlignment = Constants.xlCenter;
+            range.Borders.LineStyle = XlLineStyle.xlContinuous;
+        }
+
+        private void NumberContentCellStyle(Range range, string value)
+        {
+            SetBaseHeaderCellStyle(range,value);
+            range.Interior.Color = XlRgbColor.rgbTan;
+        }
+        private void SummaryCellStyle(Range range, string value)
+        {
+            SetBaseHeaderCellStyle(range, value);
+            range.Borders.Weight = XlBorderWeight.xlThick;
+        }
+
+        private void IngredientContentCellStyle(Range range, string value)
+        {
+            range.Value = value;
+            range.NumberFormat = "@";
+            range.Font.Name = "Times New Roman";
+            range.Font.Size = 14;
+            range.HorizontalAlignment = Constants.xlLeft;
+            range.Borders.LineStyle = XlLineStyle.xlContinuous;
+        }
+
+        private void HeaderStyle(Range range, string value)
+        {
+            range.Value = value;
+            range.NumberFormat = "@";
+            range.Font.Name = "Times New Roman";
+            range.Font.Size = 16;
+            range.HorizontalAlignment = Constants.xlCenter;
         }
     }
 
