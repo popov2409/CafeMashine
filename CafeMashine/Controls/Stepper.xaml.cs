@@ -60,7 +60,7 @@ namespace CafeMashine.Controls
 
         private void DownValue_Click(object sender, RoutedEventArgs e)
         {
-            if (Value == 0) return;
+            //if (Value == 0) return;
             Value--;
             ValueTextBlock.Text = Value.ToString();
         }
